@@ -1,0 +1,973 @@
+# The linter is bundled with the Dart SDK; if you have an updated Dart SDK already, you're done!
+# https://github.com/dart-lang/linter:
+# linter rules based on version 0.1.127 09-December-2020
+# linter rules based on version 1.2.1 26-March-2021
+
+include: package:pedantic/analysis_options.1.11.0.yaml
+# https://dart-lang.github.io/linter/lints/
+# https://github.com/google/pedantic
+# https://github.com/tenhobi/effective_dart
+# https://pub.dev/documentation/analyzer/latest/
+
+analyzer:
+  exclude:
+    - build/**
+    - lib/generated/**
+    - lib/**.g.dart
+    - lib/**.gr.dart
+    #    - lib/client.dart
+    #    - lib/server/*.g.dart
+    #    - test/_data/**
+  # If you want stricter static checks than the Dart type system requires, consider using the implicit-casts and implicit-dynamic flags
+  strong-mode:
+    implicit-casts: false # value of false ensures that the type inference engine never implicitly casts to a more specific type
+    implicit-dynamic: false # value of false ensures that the type inference engine never chooses the dynamic type when it can’t determine a static type
+  errors:
+    missing_required_param: error
+    missing_return: error
+    todo: ignore
+    # __________________________________________________ pedantic __________________________________________________
+    # error
+    avoid_relative_lib_imports: warning
+    avoid_types_as_parameter_names: error
+    no_duplicate_case_values: error
+    unrelated_type_equality_checks: error
+    unsafe_html: error
+
+    # style
+    always_declare_return_types: error
+    always_require_non_null_named_parameters: error
+    annotate_overrides: error
+    avoid_empty_else: error
+    avoid_init_to_null: error
+    avoid_null_checks_in_equality_operators: error
+    avoid_return_types_on_setters: error
+    avoid_shadowing_type_parameters: error # debatable
+    avoid_single_cascade_in_expression_statements: error
+    await_only_futures: error
+    camel_case_extensions: error
+    curly_braces_in_flow_control_structures: error
+    empty_catches: error
+    empty_constructor_bodies: error
+    library_names: error
+    library_prefixes: error
+    null_closures: error
+    omit_local_variable_types: ignore
+    prefer_adjacent_string_concatenation: error
+    prefer_collection_literals: error # debatable
+    prefer_conditional_assignment: error
+    prefer_contains: error
+    prefer_equal_for_default_values: error
+    prefer_final_fields: warning # debatable
+    prefer_for_elements_to_map_fromIterable: error # debatable
+    prefer_generic_function_type_aliases: error # debatable
+    prefer_if_null_operators: error
+    prefer_is_empty: error
+    prefer_is_not_empty: error
+    prefer_iterable_whereType: error # debatable
+    prefer_single_quotes: error
+    prefer_spread_collections: error # debatable
+    recursive_getters: error
+    slash_for_doc_comments: error
+    type_init_formals: error
+    unawaited_futures: error
+    unnecessary_brace_in_string_interps: error
+    unnecessary_const: error
+    unnecessary_new: error
+    unnecessary_null_in_if_null_operators: error
+    unnecessary_this: error
+    use_function_type_syntax_for_parameters: error
+    use_rethrow_when_possible: error
+    valid_regexps: error
+    # ___________________________________________ custom + effective dart ___________________________________________
+    # error
+    empty_statements: error
+    hash_and_equals: error
+
+    # style
+    always_put_required_named_parameters_first: error
+    avoid_catches_without_on_clauses: warning
+    avoid_catching_errors: error
+    avoid_equals_and_hash_code_on_mutable_classes: error
+    avoid_function_literals_in_foreach_calls: error
+    avoid_js_rounded_ints: error
+    avoid_positional_boolean_parameters: error
+    avoid_private_typedef_functions: error # debatable
+    avoid_returning_null: error
+    avoid_returning_null_for_void: error
+    avoid_returning_this: error
+    avoid_unused_constructor_parameters: error
+    camel_case_types: error
+    cascade_invocations: error
+    constant_identifier_names: error
+    directives_ordering: error
+    file_names: error
+    implementation_imports: error
+    missing_whitespace_between_adjacent_strings: error
+    non_constant_identifier_names: error
+    one_member_abstracts: error
+    overridden_fields: error
+    package_api_docs: error # debatable
+    parameter_assignments: error
+    prefer_asserts_with_message: error
+    prefer_function_declarations_over_variables: error
+    prefer_if_elements_to_conditional_expressions: error # debatable
+    prefer_initializing_formals: error
+    prefer_inlined_adds: error
+    prefer_interpolation_to_compose_strings: error
+    prefer_mixin: error
+    provide_deprecation_message: error
+    sized_box_for_whitespace: error
+    sort_child_properties_last: error
+    sort_unnamed_constructors_first: error
+    type_annotate_public_apis: error
+    unnecessary_getters_setters: error
+    unnecessary_lambdas: error
+    unnecessary_overrides: error
+    unnecessary_parenthesis: error
+    unnecessary_raw_strings: error
+    unnecessary_string_escapes: error
+    unnecessary_string_interpolations: error
+    use_full_hex_values_for_flutter_colors: error
+    use_is_even_rather_than_modulo: error
+    use_raw_strings: error
+    use_setters_to_change_properties: error
+    use_string_buffers: error
+    use_to_and_as_if_applicable: error
+
+    # pub rules
+    package_names: error
+    sort_pub_dependencies: ignore
+
+linter:
+  rules:
+    # __________________________________________________Error Rules__________________________________________________
+    # Dart SDK: >= 2.10.0 • (Linter v0.1.118)
+    # Avoid relative imports for files in lib/.
+    #- always_use_package_imports
+
+    # Dart SDK: unreleased
+    # Avoid method calls or property accesses on a "dynamic" target.
+    # avoid_dynamic_calls (experimental)
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.8)
+    # Avoid empty else statements.
+    # flutter pedantic
+    #- avoid_empty_else
+
+    # Dart SDK: >= 2.5.0-dev.1.0 • (Linter v0.1.93)
+    # Avoid print calls in production code.
+    #- avoid_print
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.44)
+    # Avoid relative imports for files in lib/.
+    # pedantic effective dart
+    #- avoid_relative_lib_imports
+
+    # Dart SDK: >= 2.1.1-dev.0.0 • (Linter v0.1.72)
+    # Avoid returning null for Future.
+    #- avoid_returning_null_for_future
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.30)
+    # Avoid slow async dart:io methods.
+    #- avoid_slow_async_io
+
+    # Dart SDK: >= 2.10.0-144.0.dev • (Linter v0.1.119)
+    # Avoid .toString() in production code since results male to bylay be minified.
+    #- avoid_type_to_string
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.45)
+    # Avoid types as parameter names.
+    # pedantic
+    #- avoid_types_as_parameter_names
+
+    # Dart SDK: >= 2.6.0 • (Linter v0.1.101)
+    # Avoid using web-only libraries outside Flutter web plugin packages.
+    # flutter
+    #- avoid_web_libraries_in_flutter (experimental)
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.20)
+    # Cancel instances of dart.async.StreamSubscription.
+    # flutter
+    #- cancel_subscriptions
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.19)
+    # Close instances of dart.core.Sink.
+    # flutter
+    #- close_sinks
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.17)
+    # Only reference in scope identifiers in doc comments.
+    #- comment_references
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.16)
+    # Avoid control flow in finally blocks.
+    # flutter
+    #- control_flow_in_finally
+
+    # Dart SDK: >= 2.2.1-dev.4.0 • (Linter v0.1.85)
+    # DO reference all public properties in debug methods.
+    #- diagnostic_describe_all_properties
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.21)
+    # Avoid empty statements.
+    # flutter
+    - empty_statements
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.11)
+    # Always override hashCode if overriding ==.
+    # flutter effective dart
+    - hash_and_equals
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.25)
+    # Conditions should not unconditionally evaluate to true or to false.
+    #- invariant_booleans (experimental).
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.17)
+    # Invocation of Iterable.contains with references of unrelated types.
+    #- iterable_contains_unrelated_type
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.22)
+    # Invocation of remove with references of unrelated types.
+    #- list_remove_unrelated_type
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.25)
+    # Boolean expression composed only with literals.
+    #- literal_only_boolean_expressions
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.30)
+    # Don't use adjacent strings in list.
+    #- no_adjacent_strings_in_list
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.30)
+    # Don't use more than one case with same value.
+    # pedantic
+    #- no_duplicate_case_values
+
+    # Dart SDK: >= 2.8.0-dev.1.0 • (Linter v0.1.106)
+    # Don't put any logic in createState.
+    #- no_logic_in_create_state
+
+    # Dart SDK: >= 2.6.0-dev.5.0 • (Linter v0.1.99)
+    # Prefer relative imports for files in lib/.
+    # effective dart
+    #- prefer_relative_imports: false
+
+    # Dart SDK: >= 2.1.0-dev.1.0 • (Linter v0.1.59)
+    # Don't use the Null type, unless you are positive that you don't want void.
+    #- prefer_void_to_null
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.16)
+    # Test type arguments in operator ==(Object other).
+    # flutter
+    #- test_types_in_equals
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.16)
+    # Avoid throw in finally block.
+    # flutter
+    #- throw_in_finally
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.36)
+    # Avoid using unnecessary statements.
+    # flutter
+    #- unnecessary_statements
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.16)
+    # Equality operator == invocation with references of unrelated types.
+    # flutter pedantic
+    #- unrelated_type_equality_checks
+
+    # Dart SDK: >= 2.3.2-dev.0.1 • (Linter v0.1.90)
+    # Avoid unsafe HTML APIs.
+    - unsafe_html
+
+    # Dart SDK: unreleased.
+    # Do not use BuildContexts across async gaps.
+    #- use_build_context_synchronously (experimental)
+
+    # Dart SDK: >= 2.8.0-dev.1.0 • (Linter v0.1.108)
+    # Use key in widget constructors.
+    #- use_key_in_widget_constructors
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.22)
+    #  Use valid regular expression syntax.
+    # flutter pedantic
+    #- valid_regexps
+
+    # __________________________________________________Style Rules__________________________________________________
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.4)
+    # Declare method return types.
+    # pedantic
+    #- always_declare_return_types
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.31)
+    # Separate the control structure expression from its statement.
+    #- always_put_control_body_on_new_line
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.33)
+    # Put @required named parameters first.
+    - always_put_required_named_parameters_first
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.31)
+    # Specify @required on named parameters without defaults.
+    # pedantic
+    #- always_require_non_null_named_parameters
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.4)
+    # Specify type annotations.
+    #- always_specify_types
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.11)
+    # Annotate overridden members.
+    # pedantic
+    #- annotate_overrides
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.31)
+    # Avoid annotating with dynamic when not required.
+    #- avoid_annotating_with_dynamic
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.5)
+    # Avoid using as.
+    # Deprecated
+    #- avoid_as
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.46)
+    # Avoid bool literals in conditional expressions.
+    #- avoid_bool_literals_in_conditional_expressions
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.31)
+    # effective dart Avoid catches without on clauses.
+    - avoid_catches_without_on_clauses
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.31)
+    # Don't explicitly catch Error or types that implement it.
+    # effective dart
+    - avoid_catching_errors
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.31)
+    # Avoid defining a class that contains only static members.
+    # effective dart
+    #- avoid_classes_with_only_static_members: false
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.47)
+    # Avoid double and int checks.
+    #- avoid_double_and_int_checks
+
+    # Dart SDK: >= 2.6.0-dev.3.0 • (Linter v0.1.97)
+    # Avoid overloading operator == and hashCode on classes not marked @immutable.
+    # effective dart
+    - avoid_equals_and_hash_code_on_mutable_classes
+
+    # Dart SDK: >= 2.8.0-dev.11.0 • (Linter v0.1.111)
+    # Avoid escaping inner quotes by converting surrounding quotes.
+    #- avoid_escaping_inner_quotes
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.48)
+    # Avoid field initializers in const classes.
+    #- avoid_field_initializers_in_const_classes
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.30)
+    # Avoid using forEach with a function literal.
+    # effective dart
+    - avoid_function_literals_in_foreach_calls
+
+    # Dart SDK: >= 2.1.0-dev.5.0 • (Linter v0.1.62)
+    # Don't implement classes that override ==.
+    #- avoid_implementing_value_types
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.11)
+    #  Don't explicitly initialize variables to null.
+    # flutter pedantic effective dart
+    #- avoid_init_to_null
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.48)
+    # Avoid JavaScript rounded ints.
+    - avoid_js_rounded_ints
+
+    # Dart SDK: unreleased
+    # Don't declare multiple variables on a single line.
+    #- avoid_multiple_declarations_per_line
+
+    # dart Don't check for null in custom == operators.
+    # pedantic effective
+    #- avoid_null_checks_in_equality_operators
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.31)
+    # Avoid positional boolean parameters.
+    # effective dart
+    - avoid_positional_boolean_parameters
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.46)
+    # Avoid private typedef functions.
+    # effective dart
+    - avoid_private_typedef_functions
+
+    # Dart SDK: >= 2.8.0-dev.1.0 • (Linter v0.1.107)
+    # Avoid redundant argument values.
+    #- avoid_redundant_argument_values
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.45)
+    # Don't rename parameters of overridden methods.
+    #- avoid_renaming_method_parameters
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.11)
+    # Avoid return types on setters.
+    # flutter pedantic effective dart
+    #- avoid_return_types_on_setters
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.31)
+    # Avoid returning null from members whose return type is bool, double, int, or num.
+    # effective dart
+    - avoid_returning_null
+
+    # Dart SDK: >= 2.1.0-dev.8.0 • (Linter v0.1.69)
+    # Avoid returning null for void.
+    - avoid_returning_null_for_void
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.31)
+    # Avoid returning this from methods just to enable a fluent interface.
+    # effective dart
+    - avoid_returning_this
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.31)
+    # Avoid setters without getters.
+    # effective dart
+    #- avoid_setters_without_getters: false
+
+    # Dart SDK: >= 2.1.1-dev.0.0 • (Linter v0.1.72)
+    # Avoid shadowing type parameters.
+    # pedantic
+    #- avoid_shadowing_type_parameters
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.46)
+    # Avoid single cascade in expression statements.
+    # pedantic
+    #- avoid_single_cascade_in_expression_statements
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.31)
+    # Avoid annotating types for function expression parameters.
+    # effective dart
+    #- avoid_types_on_closure_parameters: false
+
+    # Dart SDK: >= 2.7.0-dev.0.0 • (Linter v0.1.102)
+    # Avoid unnecessary containers.
+    #- avoid_unnecessary_containers
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.36)
+    # Avoid defining unused parameters in constructors.
+    - avoid_unused_constructor_parameters
+
+    # Dart SDK: >= 2.1.0-dev.3.0 • (Linter v0.1.60)
+    # Avoid async functions that return void.
+    #- avoid_void_async
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.16)
+    # Await only futures.
+    # pedantic flutter
+    #- await_only_futures
+
+    # Dart SDK: >= 2.6.0-dev.0.0 • (Linter v0.1.97+1)
+    # Name extensions using UpperCamelCase.
+    # pedantic effective dart
+    #- camel_case_extensions
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.1)
+    # Name types using UpperCamelCase.
+    # flutter effective dart
+    - camel_case_types
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.29)
+    # Cascade consecutive method invocations on the same reference.
+    - cascade_invocations
+
+    # Dart SDK: >= 2.11.0-182.0.dev • (Linter v0.1.120)
+    # Don't cast a nullable value to a non nullable type.
+    #- cast_nullable_to_non_nullable (experimental)
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.1)
+    # Prefer using lowerCamelCase for constant names.
+    # effective dart
+    - constant_identifier_names
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.57)
+    # DO use curly braces for all flow control structures.
+    # pedantic effective dart
+    #- curly_braces_in_flow_control_structures
+
+    # Dart SDK: unreleased
+    # Missing deprecated annotation.
+    #- deprecated_consistency
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.30)
+    # Adhere to Effective Dart Guide directives sorting conventions.
+    # effective dart
+    - directives_ordering
+
+    # Dart SDK: >= 2.10.0-0.0.dev • (Linter v0.1.117)
+    # Do not use environment declared variables.
+    #- do_not_use_environment
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.22)
+    # Avoid empty catch blocks.
+    # pedantic
+    #- empty_catches
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.1)
+    # Use ; instead of {} for empty constructor bodies.
+    # flutter pedantic effective dart
+    #- empty_constructor_bodies
+
+    # Dart SDK: >= 2.9.0-12.0.dev • (Linter v0.1.116)
+    # Define case clauses for all constants in enum-like classes.
+    #- exhaustive_cases
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.54)
+    # Name source files using lowercase_with_underscores.
+    # effective dart
+    - file_names
+
+    # Dart SDK: >= 2.1.0-dev.5.0 • (Linter v0.1.61)
+    # Use Flutter TO DO format: // TO DO(username): message, https://URL-to-issue.
+    #- flutter_style_todos
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.4)
+    # Don't import implementation files from another package.
+    # flutter effective dart
+    - implementation_imports
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.31)
+    # Join return statement with assignment when possible.
+    #- join_return_with_assignment
+
+    # Dart SDK: >= 2.8.0-dev.16.0 • (Linter v0.1.113)
+    # Start multiline strings with a newline.
+    #- leading_newlines_in_multiline_strings
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.1)
+    # Name libraries using lowercase_with_underscores.
+    # flutter pedantic effective dart
+    #- library_names
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.1)
+    # Use lowercase_with_underscores when specifying a library prefix.
+    # pedantic effective dart
+    #- library_prefixes
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.56)
+    # Avoid lines longer than 80 characters.
+    # effective dart
+    #- lines_longer_than_80_chars: false
+
+    # Dart SDK: >= 2.8.0-dev.10.0 • (Linter v0.1.110)
+    # Missing whitespace between adjacent strings.
+    - missing_whitespace_between_adjacent_strings
+
+    # Dart SDK: >= 2.9.0-12.0.dev • (Linter v0.1.116)
+    # No default cases.
+    #- no_default_cases (experimental)
+
+    # Dart SDK: >= 2.8.0-dev.10.0 • (Linter v0.1.110)
+    # Avoid calling toString() on runtimeType.
+    #- no_runtimeType_toString
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.1)
+    # Name non-constant identifiers using lowerCamelCase.
+    # flutter effective dart
+    - non_constant_identifier_names
+
+    # Dart SDK: >= 2.11.0-182.0.dev • (Linter v0.1.120)
+    # Don't use null check on a potentially nullable type parameter.
+    #- null_check_on_nullable_type_parameter (experimental)
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.56)
+    # Do not pass null as an argument where a closure is expected.
+    # pedantic
+    #- null_closures
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.30)
+    # Omit type annotations for local variables.
+    # pedantic effective dart
+    #- omit_local_variable_types
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.1)
+    # effective dart Avoid defining a one-member abstract class when a simple function will do.
+    - one_member_abstracts
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.21)
+    # Only throw instances of classes extending either Exception or Error.
+    #- only_throw_errors
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.18)
+    # Don't override fields.
+    - overridden_fields
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.1)
+    # Provide doc comments for all public APIs.
+    # flutter effective dart
+    - package_api_docs
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.1)
+    # Prefix library names with the package name and a dot-separated path.
+    # flutter
+    #- package_prefixed_library_names
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.27)
+    # Don't reassign references to parameters of functions or methods.
+    - parameter_assignments
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.30)
+    # Use adjacent strings to concatenate string literals.
+    # pedantic effective dart
+    #- prefer_adjacent_string_concatenation
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.33)
+    # Prefer putting asserts in initializer list.
+    #- prefer_asserts_in_initializer_lists
+
+    # Dart SDK: >= 2.2.1-dev.4.0 • (Linter v0.1.84)
+    # Prefer asserts with message.
+    - prefer_asserts_with_message
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.30)
+    # Prefer using a boolean as the assert condition.
+    #- prefer_bool_in_asserts (deprecated)
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.36)
+    # pedantic effective dart Use collection literals when possible.
+    #- prefer_collection_literals
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.31)
+    # pedantic Prefer using ??= over testing for null.
+    #- prefer_conditional_assignment
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.30)
+    # Prefer const with constant constructors.
+    #- prefer_const_constructors
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.33)
+    # Prefer declaring const constructors on @immutable classes.
+    #- prefer_const_constructors_in_immutables
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.43)
+    # Prefer const over final for declarations.
+    #- prefer_const_declarations
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.43)
+    # Prefer const literals as parameters of constructors on @immutable classes.
+    #- prefer_const_literals_to_create_immutables
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.31)
+    # Prefer defining constructors instead of static methods to create instances.
+    #- prefer_constructors_over_static_methods
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.30)
+    # Use contains for List and String instances.
+    # pedantic
+    #- prefer_contains
+
+    # Dart SDK: >= 2.3.2-dev.0.0 • (Linter v0.1.88)
+    # Prefer double quotes where they won't require escape sequences.
+    #- prefer_double_quotes
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.46)
+    # pedantic effective dart Use = to separate a named parameter from its default value.
+    #- prefer_equal_for_default_values
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.30)
+    # Use => for short members whose body is a single return statement.
+    #- prefer_expression_function_bodies
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.27)
+    # Private field could be final.
+    # pedantic effective dart
+    #- prefer_final_fields
+
+    # Dart SDK: >= 2.1.1 • (Linter v0.1.78)
+    # Prefer final in for-each loop variable if reference is not reassigned.
+    #- prefer_final_in_for_each
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.27)
+    # Prefer final for variable declarations if they are not reassigned.
+    #- prefer_final_locals
+
+    # Dart SDK: >= 2.2.1-dev.4.0 • (Linter v0.1.85)
+    # Prefer for elements when building maps from iterables.
+    # pedantic
+    #- prefer_for_elements_to_map_fromIterable
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.31)
+    # Use forEach to only apply a function to all the elements.
+    #- prefer_foreach
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.30)
+    # Use a function declaration to bind a function to a name.
+    # effective dart
+    - prefer_function_declarations_over_variables
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.47)
+    # Prefer generic function type aliases.
+    # pedantic effective dart
+    #- prefer_generic_function_type_aliases
+
+    # Dart SDK: >= 2.2.1-dev.4.0 • (Linter v0.1.85)
+    # Prefer if elements to conditional expressions where possible.
+    - prefer_if_elements_to_conditional_expressions
+
+    # Dart SDK: >= 2.3.2-dev.0.0 • (Linter v0.1.89)
+    # Prefer using if null operators.
+    # pedantic
+    #- prefer_if_null_operators
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.30)
+    # Use initializing formals when possible.
+    # effective dart
+    - prefer_initializing_formals
+
+    # Dart SDK: >= 2.3.0 • (Linter v0.1.86)
+    # Inline list item declarations where possible.
+    # pedantic
+    #- prefer_inlined_adds
+
+    # Dart SDK: >= 2.1.0 • (Linter v0.1.71)
+    # Prefer int literals over double literals.
+    #- prefer_int_literals
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.30)
+    # Use interpolation to compose strings and values.
+    # effective dart
+    - prefer_interpolation_to_compose_strings
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.30)
+    # Use isEmpty for Iterables and Maps.
+    # pedantic effective dart
+    #- prefer_is_empty
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.5)
+    # Use isNotEmpty for Iterables and Maps.
+    # flutter pedantic effective dart
+    #- prefer_is_not_empty
+
+    # Dart SDK: >= 2.7.0-dev.0.0 • (Linter v0.1.102)
+    # Prefer is! operator.
+    #- prefer_is_not_operator
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.47)
+    # Prefer to use whereType on iterable.
+    # pedantic effective dart
+    #- prefer_iterable_whereType
+
+    # Dart SDK: >= 2.1.0-dev.5.0 • (Linter v0.1.62)
+    # Prefer using mixins.
+    # effective dart
+    - prefer_mixin
+
+    # Dart SDK: >= 2.2.0 • (Linter v0.1.80)
+    # Prefer using null aware operators.
+    #- prefer_null_aware_operators
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.33)
+    # Only use double quotes for strings containing single quotes.
+    # pedantic
+    #- prefer_single_quotes
+
+    # Dart SDK: >= 2.2.1-dev.4.0 • (Linter v0.1.85)
+    # Use spread collections when possible.
+    # pedantic
+    #- prefer_spread_collections
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.36)
+    # Prefer typing uninitialized variables and fields.
+    #- prefer_typing_uninitialized_variables
+
+    # Dart SDK: >= 2.2.0 • (Linter v0.1.82)
+    # Provide a deprecation message, via @Deprecated("message").
+    - provide_deprecation_message
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.11)
+    # Document all public members.
+    # effective dart
+    #- public_member_api_docs
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.30)
+    # Property getter recursively returns itself.
+    # pedantic
+    #- recursive_getters
+
+    # Dart SDK: >= 2.9.0-10.0.dev • (Linter v0.1.115)
+    # SizedBox for whitespace.
+    - sized_box_for_whitespace
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.1)
+    # Prefer using /// for doc comments.
+    # flutter pedantic effective dart
+    #- slash_for_doc_comments
+
+    # Dart SDK: >= 2.3.2-dev.0.0 • (Linter v0.1.88)
+    # Sort child properties last in widget instance creations.
+    - sort_child_properties_last
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.11)
+    # Sort constructor declarations before other members.
+    #- sort_constructors_first
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.11)
+    # Sort unnamed constructor declarations first.
+    - sort_unnamed_constructors_first
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.1)
+    # Place the super call last in a constructor initialization list.
+    #- super_goes_last (deprecated)
+
+    # Dart SDK: >= 2.11.0-182.0.dev • (Linter v0.1.120)
+    # Tighten type of initializing formal.
+    #- tighten_type_of_initializing_formals
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.5)
+    # Type annotate public APIs.
+    # effective dart
+    - type_annotate_public_apis
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.1)
+    # Don't type annotate initializing formals.
+    # flutter pedantic effective dart
+    #- type_init_formals
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.19)
+    # Future results in async function bodies must be awaited or marked unawaited using package:pedantic.
+    # pedantic
+    #- unawaited_futures
+
+    # Dart SDK: >= 2.1.1-dev.0.0 • (Linter v0.1.73)
+    # Unnecessary await keyword in return.
+    #- unnecessary_await_in_return
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.30)
+    # Avoid using braces in interpolation when not needed.
+    # flutter pednatic effective dart
+    #- unnecessary_brace_in_string_interps: false
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.54)
+    # Avoid const keyword.
+    # pedantic effective dart
+    #- unnecessary_const
+
+    # Dart SDK: >= 2.7.0 • (Linter v0.1.104)
+    # Don't use final for local variables.
+    #- unnecessary_final
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.1)
+    # Avoid wrapping fields in getters and setters just to be "safe".
+    # flutter effective dart
+    - unnecessary_getters_setters
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.30)
+    # Don't create a lambda when a tear-off will do.
+    # effective dart
+    - unnecessary_lambdas
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.54)
+    # Unnecessary new keyword.
+    # pedantic effective dart
+    #- unnecessary_new
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.30)
+    # Avoid null in null-aware assignment.
+    #- unnecessary_null_aware_assignments
+
+    # Dart SDK: >= 2.10.0-144.0.dev • (Linter v0.1.119)
+    # Unnecessary null checks.
+    #- unnecessary_null_checks (experimental)
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.30)
+    # Avoid using null in if null operators.
+    # pedantic
+    #- unnecessary_null_in_if_null_operators
+
+    # Dart SDK: >= 2.10.0 • (Linter v0.1.118)
+    # Use a non-nullable type for a final variable initialized with a non-nullable value.
+    #- unnecessary_nullable_for_final_variable_declarations (experimental)
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.31)
+    # Don't override a method to do a super method invocation with the same parameters.
+    - unnecessary_overrides
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.44)
+    # Unnecessary parenthesis can be removed.
+    - unnecessary_parenthesis
+
+    # Dart SDK: >= 2.8.0-dev.11.0 • (Linter v0.1.111)
+    # Unnecessary raw string.
+    - unnecessary_raw_strings
+
+    # Dart SDK: >= 2.8.0-dev.11.0 • (Linter v0.1.111)
+    # Remove unnecessary backslashes in strings.
+    - unnecessary_string_escapes
+
+    # Dart SDK: >= 2.8.0-dev.10.0 • (Linter v0.1.110)
+    # Unnecessary string interpolation.
+    - unnecessary_string_interpolations
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.30)
+    # pedantic effective dart Don't access members with this unless avoiding shadowing.
+    #- unnecessary_this
+
+    # Dart SDK: >= 2.2.0 • (Linter v0.1.80)
+    # Prefer an 8-digit hexadecimal integer(0xFFFFFFFF) to instantiate Color.
+    - use_full_hex_values_for_flutter_colors
+
+    # Dart SDK: >= 2.1.1-dev.0.0 • (Linter v0.1.72)
+    # pedantic Use generic function type syntax for parameters.
+    #- use_function_type_syntax_for_parameters
+
+    # Dart SDK: unreleased
+    # Use if-null operators to convert nulls to bools.
+    #- use_if_null_to_convert_nulls_to_bools
+
+    # Dart SDK: >= 2.9.0-12.0.dev • (Linter v0.1.116)
+    # Prefer intValue.isOdd/isEven instead of checking the result of % 2.
+    - use_is_even_rather_than_modulo
+
+    # Dart SDK: >= 2.10.0 • (Linter v0.1.118)
+    # Use late for private members with non-nullable type.
+    #- use_late_for_private_fields_and_variables (experimental)
+
+    # Dart SDK: unreleased
+    # Use predefined named constants.
+    #- use_named_constants
+
+    # Dart SDK: >= 2.8.0-dev.11.0 • (Linter v0.1.111)
+    # Use raw string to avoid escapes.
+    - use_raw_strings
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.31)
+    # Use rethrow to rethrow a caught exception.
+    # pedantic effective dart
+    #- use_rethrow_when_possible
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.31)
+    # effective dart Use a setter for operations that conceptually change a property.
+    - use_setters_to_change_properties
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.31)
+    # Use string buffers to compose strings.
+    - use_string_buffers
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.31)
+    # effective dart Start the name of the method with to/_to or as/_as if applicable.
+    - use_to_and_as_if_applicable
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.49)
+    # Don't assign to void.
+    #- void_checks
+
+    # __________________________________________________Pub Rules__________________________________________________
+
+    # Dart SDK: >= 2.0.0 • (Linter v0.1.31)
+    # Use lowercase_with_underscores for package names.
+    # flutter
+    - package_names
+
+    # Dart SDK: >= 2.1.0-dev.6.0 • (Linter v0.1.63)
+    # Sort pub dependencies.
+    - sort_pub_dependencies

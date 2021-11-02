@@ -1,0 +1,95 @@
+name: miro
+description: A new Flutter project.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: "^2.5.3"
+
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flutter_localizations:
+    sdk: flutter
+
+
+  #  A wrapper around InheritedWidget to make them easier to use and more reusable.
+  #  https://pub.dev/packages/provider
+  provider: ^6.0.1
+
+  #  AutoRoute is a declarative routing solution, where everything needed for navigation is automatically generated for you.
+  #  https://pub.dev/packages/auto_route
+  auto_route: ^3.0.4
+
+  #  This is a simple Service Locator for Dart and Flutter projects
+  #  https://pub.dev/packages/get_it
+  get_it: ^7.2.0
+
+  # A powerful Http client for Dart, which supports Interceptors, Global configuration, FormData,
+  #  Request Cancellation, File downloading, Timeout etc.
+  #  https://pub.dev/packages/dio
+  dio: ^4.0.1
+
+  # Fast, Enjoyable & Secure NoSQL Database
+  # https://github.com/hivedb/hive
+  hive: ^2.0.4
+  hive_flutter: ^1.1.0
+
+  # Small, easy to use and extensible logger which prints beautiful logs.
+  # https://pub.dev/packages/logger
+  logger: ^1.1.0
+
+  # Flutter Widgets that make it easy to implement the BLoC (Business Logic Component) design pattern. Built to be used with the bloc state management package.
+  # https://pub.dev/packages/flutter_bloc
+  flutter_bloc: ^7.3.1
+
+  # Contains code to deal with internationalized/localized messages, date and number formatting and parsing, bi-directional text, and other internationalization issues.
+  # https://pub.dev/packages/intl
+  intl: ^0.17.0
+
+  #  The google_fonts package for Flutter allows you to easily use any of the 977 fonts
+  #  (and their variants) from fonts.google.com in your Flutter app.
+  #  https://pub.dev/packages/google_fonts
+  google_fonts: ^2.1.0
+
+dev_dependencies:
+  pedantic: ^1.11.0
+  auto_route_generator: ^3.0.1
+  build_runner: ^2.1.4
+  hive_generator: ^1.1.1
+  flutter_lints: ^1.0.4
+  flutter_test:
+    sdk: flutter
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/
+
+flutter_intl:
+  enabled: true
