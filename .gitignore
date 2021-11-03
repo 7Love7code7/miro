@@ -33,6 +33,7 @@
 .pub-cache/
 .pub/
 /build/
+**/in_progress/**
 
 # Web related
 lib/generated_plugin_registrant.dart

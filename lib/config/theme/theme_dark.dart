@@ -10,14 +10,14 @@ ColorScheme _kColorSchemeDark = ColorScheme.dark(
 );
 
 TextTheme _buildDarkTextTheme(TextTheme? base, String? lang) {
-  var textTheme = kTextTheme(base, lang);
+  final TextTheme textTheme = kTextTheme(base, lang);
   return textTheme.copyWith();
 }
 
 ThemeData buildDarkTheme(String? lang) {
-  final _baseLight = ThemeData.light();
-  return _baseLight.copyWith(
-    textTheme: _buildDarkTextTheme(_baseLight.textTheme, lang),
+  final ThemeData baseDark = ThemeData.light();
+  return baseDark.copyWith(
+    textTheme: _buildDarkTextTheme(baseDark.textTheme, lang),
     colorScheme: _kColorSchemeDark,
   );
 }

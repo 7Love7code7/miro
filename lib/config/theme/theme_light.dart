@@ -9,14 +9,14 @@ ColorScheme _kColorSchemeLight = ColorScheme.light(
 );
 
 TextTheme _buildLightTextTheme(TextTheme? base, String? lang) {
-  var textTheme = kTextTheme(base, lang);
+  final TextTheme textTheme = kTextTheme(base, lang);
   return textTheme.copyWith();
 }
 
 ThemeData buildLightTheme(String? lang) {
-  final _baseLight = ThemeData.light();
-  return _baseLight.copyWith(
-    textTheme: _buildLightTextTheme(_baseLight.textTheme, lang),
+  final ThemeData baseLight = ThemeData.light();
+  return baseLight.copyWith(
+    textTheme: _buildLightTextTheme(baseLight.textTheme, lang),
     colorScheme: _kColorSchemeLight,
   );
 }

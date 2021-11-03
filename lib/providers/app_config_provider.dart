@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:miro/config/theme/index.dart';
+import 'package:miro/shared/app_logger.dart';
 import 'package:miro/shared/utils/enums.dart';
 
-abstract class AppConfig {
+abstract class AppConfigProvider extends ChangeNotifier {
+  String get locale;
+  bool get isDarkTheme;
+  ThemeData get themeData;
   void initConfig();
 
   Future<void> updateLang(String? lang);
@@ -11,8 +15,8 @@ abstract class AppConfig {
   Future<void> updateTheme(ThemeMode mode);
 }
 
-class AppConfigImpl extends ChangeNotifier implements AppConfig {
-  AppConfigImpl() {
+class AppConfigProviderImpl extends AppConfigProvider {
+  AppConfigProviderImpl() {
     initConfig();
   }
 
@@ -20,17 +24,14 @@ class AppConfigImpl extends ChangeNotifier implements AppConfig {
   late String _locale;
   late ThemeMode _themeMode;
 
-  String get locale {
-    return _locale;
-  }
+  @override
+  String get locale => _locale;
 
-  bool get isDarkTheme {
-    return _themeMode == ThemeMode.dark;
-  }
+  @override
+  bool get isDarkTheme => _themeMode == ThemeMode.dark;
 
-  ThemeData get themeData {
-    return isDarkTheme ? buildDarkTheme(locale) : buildLightTheme(locale);
-  }
+  @override
+  ThemeData get themeData => isDarkTheme ? buildDarkTheme(locale) : buildLightTheme(locale);
 
   @override
   void initConfig() {
@@ -45,8 +46,8 @@ class AppConfigImpl extends ChangeNotifier implements AppConfig {
         )!,
       );
       notifyListeners();
-    } on Exception catch (err) {
-      print('Error located at getting configuration : $err');
+    } on Exception catch (error) {
+      AppLogger().log(message: error.toString(), logLevel: LogLevel.terribleFailure);
     }
   }
 
@@ -55,8 +56,8 @@ class AppConfigImpl extends ChangeNotifier implements AppConfig {
     try {
       await _prefs.put('language', lang!);
       notifyListeners();
-    } catch (err) {
-      print('Error located at changing the language : $err');
+    } on Exception catch (error) {
+      AppLogger().log(message: error.toString(), logLevel: LogLevel.error);
     }
   }
 
@@ -66,9 +67,8 @@ class AppConfigImpl extends ChangeNotifier implements AppConfig {
       await _prefs.put('theme_mode', enumToString(mode));
       _themeMode = mode;
       notifyListeners();
-    } catch (err) {
-      print('Error located at updating the theme : $err');
-      notifyListeners();
+    } on Exception catch (error) {
+      AppLogger().log(message: error.toString(), logLevel: LogLevel.error);
     }
   }
 }

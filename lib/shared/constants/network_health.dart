@@ -1,0 +1,4 @@
+enum NetworkHealthStatus {
+  online,
+  offline,
+}

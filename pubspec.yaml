@@ -49,6 +49,10 @@ dependencies:
   #  https://pub.dev/packages/dio
   dio: ^4.0.1
 
+  # A Dart package that helps to implement value based equality without needing to explicitly override == and hashCode.
+  # https://pub.dev/packages/equatable
+  equatable: ^2.0.3
+
   # Fast, Enjoyable & Secure NoSQL Database
   # https://github.com/hivedb/hive
   hive: ^2.0.4
@@ -60,23 +64,27 @@ dependencies:
 
   # Flutter Widgets that make it easy to implement the BLoC (Business Logic Component) design pattern. Built to be used with the bloc state management package.
   # https://pub.dev/packages/flutter_bloc
-  flutter_bloc: ^7.3.1
+  flutter_bloc: ^7.3.3
 
   # Contains code to deal with internationalized/localized messages, date and number formatting and parsing, bi-directional text, and other internationalization issues.
   # https://pub.dev/packages/intl
   intl: ^0.17.0
 
-  #  The google_fonts package for Flutter allows you to easily use any of the 977 fonts
-  #  (and their variants) from fonts.google.com in your Flutter app.
-  #  https://pub.dev/packages/google_fonts
+  # The google_fonts package for Flutter allows you to easily use any of the 977 fonts
+  # (and their variants) from fonts.google.com in your Flutter app.
+  # https://pub.dev/packages/google_fonts
   google_fonts: ^2.1.0
 
+  # Flutter package that allows setting the web app URL strategy with a single line of code.
+  # https://pub:dev/packages/url_strategy:
+  url_strategy: ^0.2.0
+  bloc_test: ^8.5.0
+
 dev_dependencies:
-  pedantic: ^1.11.0
   auto_route_generator: ^3.0.1
-  build_runner: ^2.1.4
+  build_runner: ^2.1.5
   hive_generator: ^1.1.1
-  flutter_lints: ^1.0.4
+  #flutter_lints: ^1.0.4
   flutter_test:
     sdk: flutter
 
@@ -90,6 +98,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
+    - assets/test/
+    - assets/test/repository/
 
 flutter_intl:
   enabled: true

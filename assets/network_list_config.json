@@ -1,0 +1,16 @@
+{
+  "network_list" : [
+    {
+      "name": "testnet",
+      "address": "https://testnet-rpc.kira.network"
+    },
+    {
+      "name": "49.12.235.110:11000",
+      "address": "http://49.12.235.110:11000"
+    },
+    {
+      "name": "139.180.203.213:11000",
+      "address": "http://139.180.203.213:11000"
+    }
+  ]
+}
