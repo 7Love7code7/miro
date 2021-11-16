@@ -80,6 +80,13 @@ dependencies:
   url_strategy: ^0.2.0
   bloc_test: ^8.5.0
 
+  # BIP39
+  pointycastle: ^3.4.0
+  hex: ^0.2.0
+  crypto: ^3.0.1
+  bs58check: ^1.0.2
+  bech32: ^0.2.1
+
 dev_dependencies:
   auto_route_generator: ^3.0.1
   build_runner: ^2.1.5
