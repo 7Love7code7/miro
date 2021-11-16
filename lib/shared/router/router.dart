@@ -26,6 +26,12 @@ import 'package:miro/views/pages/welcome_page/welcome_page.dart';
         guards: [UrlPathGuard],
       ),
       AutoRoute(
+        page: CreateWalletPage,
+        name: 'CreateWalletRoute',
+        path: 'create-wallet',
+        guards: [UrlPathGuard],
+      ),
+      AutoRoute(
         page: ValidatorsPage,
         name: 'ValidatorsRoute',
         path: 'validators',
