@@ -1,1 +1,1 @@
-export 'center_load_spinner.dart';
+export 'generic/center_load_spinner.dart';

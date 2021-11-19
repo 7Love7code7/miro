@@ -18,6 +18,14 @@ class WelcomePage extends StatelessWidget {
             },
             child: const Text('Navigate to Connection Screen'),
           ),
+          ElevatedButton(
+            onPressed: () {
+              context.router.navigate(
+                const CreateWalletRoute(),
+              );
+            },
+            child: const Text('Navigate to Create Wallet Page'),
+          ),
         ],
       ),
     );

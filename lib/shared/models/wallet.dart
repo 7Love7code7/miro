@@ -1,11 +1,13 @@
 import 'dart:typed_data';
 
-import 'package:bech32/bech32.dart';
+// import 'package:bech32/bech32.dart' as bech32;
+import 'package:bip32/bip32.dart' as bip32;
+import 'package:bip39/bip39.dart' as bip39;
 import 'package:equatable/equatable.dart';
 import 'package:hex/hex.dart';
-import 'package:miro/plugins/bip32/bip32_base.dart';
-import 'package:miro/plugins/bip39/bip39_base.dart' as bip39;
+import 'package:miro/shared/models/mnemonic.dart';
 import 'package:miro/shared/models/network_info.dart';
+import 'package:miro/shared/utils/bech32_encoder.dart';
 import 'package:pointycastle/ecc/curves/secp256k1.dart';
 import 'package:pointycastle/export.dart';
 
@@ -41,13 +43,55 @@ class Wallet extends Equatable {
   /// Optionally can define a different derivation path
   /// setting [lastDerivationPathSegment].
   factory Wallet.derive(
-    List<String> mnemonic,
+    Mnemonic mnemonic,
     NetworkInfo networkInfo, {
     String lastDerivationPathSegment = '0',
   }) {
     // Get the mnemonic as a string
+    if (!mnemonic.validate()) {
+      throw Exception('Invalid mnemonic ${mnemonic.value}');
+    }
+
+    final int _lastDerivationPathSegmentCheck = int.tryParse(lastDerivationPathSegment) ?? -1;
+    if (_lastDerivationPathSegmentCheck < 0) {
+      throw Exception('Invalid index format $lastDerivationPathSegment');
+    }
+
+    // Convert the mnemonic to a BIP32 instance
+    final Uint8List seed = mnemonic.toSeed();
+    final bip32.BIP32 root = bip32.BIP32.fromSeed(seed);
+
+    // Get the node from the derivation path
+    final bip32.BIP32 derivedNode = root.derivePath('$baseDerivationPath/$lastDerivationPathSegment');
+
+    // Get the curve data
+    final ECCurve_secp256k1 secp256k1 = ECCurve_secp256k1();
+    final ECPoint point = secp256k1.G;
+
+    // Compute the curve point associated to the private key
+    final BigInt bigInt = BigInt.parse(HEX.encode(derivedNode.privateKey!), radix: 16);
+    final ECPoint? curvePoint = point * bigInt;
+
+    // Get the public key
+    final Uint8List publicKeyBytes = curvePoint!.getEncoded();
+
+    // Get the address
+    final Uint8List sha256Digest = SHA256Digest().process(publicKeyBytes);
+    final Uint8List address = RIPEMD160Digest().process(sha256Digest);
+
+    return Wallet(
+      address: address,
+      publicKey: publicKeyBytes,
+      privateKey: derivedNode.privateKey!,
+      networkInfo: networkInfo,
+    );
+  }
+
+  static Future<Wallet> createWallet(List<String> mnemonic, NetworkInfo networkInfo,
+      {String lastDerivationPathSegment = '0'}) async {
+    // Get the mnemonic as a string
     final String mnemonicString = mnemonic.join(' ');
-    if (bip39.validateMnemonic(mnemonicString)) {
+    if (!bip39.validateMnemonic(mnemonicString)) {
       throw Exception('Invalid mnemonic $mnemonicString');
     }
 
@@ -58,10 +102,10 @@ class Wallet extends Equatable {
 
     // Convert the mnemonic to a BIP32 instance
     final Uint8List seed = bip39.mnemonicToSeed(mnemonicString);
-    final BIP32 root = BIP32.fromSeed(seed);
+    final bip32.BIP32 root = bip32.BIP32.fromSeed(seed);
 
     // Get the node from the derivation path
-    final BIP32 derivedNode = root.derivePath('$baseDerivationPath/$lastDerivationPathSegment');
+    final bip32.BIP32 derivedNode = root.derivePath('$baseDerivationPath/$lastDerivationPathSegment');
 
     // Get the curve data
     final ECCurve_secp256k1 secp256k1 = ECCurve_secp256k1();
@@ -99,14 +143,14 @@ class Wallet extends Equatable {
   }
 
   /// Returns the associated [address] as a Bech32 string.
-  String get bech32Address => const Bech32Codec().encode(Bech32(networkInfo.bech32Hrp, address.toList()));
+  String get bech32Address => Bech32Encoder.encode(networkInfo.bech32Hrp, address);
 
   /// Returns the associated [publicKey] as a Bech32 string
   String get bech32PublicKey {
     final List<int> type = <int>[235, 90, 233, 135, 33]; // "addwnpep"
     final String prefix = '${networkInfo.bech32Hrp}pub';
     final Uint8List fullPublicKey = Uint8List.fromList(type + publicKey);
-    return const Bech32Codec().encode(Bech32(prefix, fullPublicKey));
+    return Bech32Encoder.encode(prefix, fullPublicKey);
   }
 
   /// Returns the associated [privateKey] as an [ECPrivateKey] instance.
@@ -122,48 +166,6 @@ class Wallet extends Equatable {
     final ECPoint? curvePoint = point * _ecPrivateKey.d;
     return ECPublicKey(curvePoint, ECCurve_secp256k1());
   }
-
-  // /// Generates a SecureRandom
-  // static SecureRandom _getSecureRandom() {
-  //   final FortunaRandom secureRandom = FortunaRandom();
-  //   final Random random = Random.secure();
-  //   final List<int> seed = List<int>.generate(32, (_) => random.nextInt(256));
-  //   secureRandom.seed(KeyParameter(Uint8List.fromList(seed)));
-  //   return secureRandom;
-  // }
-  //
-  // /// Canonicalizes [signature].
-  // /// This is necessary because if a message can be signed by (r, s), it can also be signed by (r, -s (mod N)).
-  // /// More details at
-  // /// https://github.com/web3j/web3j/blob/master/crypto/src/main/java/org/web3j/crypto/ECDSASignature.java#L27
-  // static ECSignature _toCanonicalised(ECSignature signature) {
-  //   final ECDomainParameters _params = ECCurve_secp256k1();
-  //   final BigInt _halfCurveOrder = _params.n >> 1;
-  //   if (signature.s.compareTo(_halfCurveOrder) > 0) {
-  //     final BigInt canonicalisedS = _params.n - signature.s;
-  //     // ignore: parameter_assignments
-  //     signature = ECSignature(signature.r, canonicalisedS);
-  //   }
-  //   return signature;
-  // }
-
-  // /// Signs the given [data] using the private key associated with this wallet,
-  // /// returning the signature bytes ASN.1 DER encoded.
-  // Uint8List sign(Uint8List data) {
-  //   final Signer ecdsaSigner = Signer('SHA-256/ECDSA')
-  //     ..init(
-  //         true,
-  //         ParametersWithRandom<PrivateKeyParameter<ECPrivateKey>>(
-  //           PrivateKeyParameter<ECPrivateKey>(_ecPrivateKey),
-  //           _getSecureRandom(),
-  //         ));
-  //   final ECSignature ecSignature = _toCanonicalised(ecdsaSigner.generateSignature(data) as ECSignature);
-  //
-  //   const bigIntEndian = BigIntBigEndian();
-  //   final sigBytes = Uint8List.fromList(bigIntEndian.encode(ecSignature.r) + bigIntEndian.encode(ecSignature.s));
-  //
-  //   return sigBytes;
-  // }
 
   /// Creates a new [Wallet] instance from the given [json] and [privateKey].
   factory Wallet.fromJson(Map<String, dynamic> json, Uint8List privateKey) {

@@ -11,6 +11,8 @@ import 'package:miro/shared/router/router.gr.dart';
 import 'package:provider/provider.dart';
 import 'package:url_strategy/url_strategy.dart';
 
+// ignore_for_file: always_specify_types
+
 Future<void> main() async {
   await Hive.initFlutter();
   await initLocator();

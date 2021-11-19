@@ -17,8 +17,8 @@ analyzer:
   exclude:
     #### CUSTOM
     - build/**
-    - lib/main.dart
-    - lib/shared/router/**
+#    - lib/main.dart
+#    - lib/shared/router/**
     - lib/generated/**
     - lib/**.g.dart
     - lib/**.gr.dart
