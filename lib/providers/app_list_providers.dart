@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/specific_blocs/network_connector/network_connector_cubit.dart';
 import 'package:miro/blocs/specific_blocs/network_list/network_list_cubit.dart';
 import 'package:miro/config/locator.dart';
-import 'package:miro/infra/services/interx_status_service.dart';
+import 'package:miro/infra/services/api/interx_status_service.dart';
 import 'package:miro/providers/network_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';

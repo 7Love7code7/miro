@@ -17,8 +17,8 @@ class InterxStatusService extends _InterxStatusService {
   @override
   Future<NetworkHealthStatus> getHealth(Uri networkUri) async {
     try {
-      final Response<dynamic> apiStatus = await _apiRepository.fetchApiStatus<dynamic>(networkUri);
-      if (apiStatus.statusCode == 200) {
+      final Response<dynamic> response = await _apiRepository.fetchInterxStatus<dynamic>(networkUri);
+      if (response.statusCode == 200) {
         return NetworkHealthStatus.online;
       }
       return NetworkHealthStatus.offline;
@@ -30,9 +30,9 @@ class InterxStatusService extends _InterxStatusService {
   @override
   Future<InterxStatus?> getData(Uri networkUri) async {
     try {
-      final Response<dynamic> apiStatus = await _apiRepository.fetchApiStatus<dynamic>(networkUri);
-      if (apiStatus.data is Map<String, dynamic>) {
-        return InterxStatus.fromJson(apiStatus.data as Map<String, dynamic>);
+      final Response<dynamic> response = await _apiRepository.fetchInterxStatus<dynamic>(networkUri);
+      if (response.data is Map<String, dynamic>) {
+        return InterxStatus.fromJson(response.data as Map<String, dynamic>);
       } else {
         return null;
       }

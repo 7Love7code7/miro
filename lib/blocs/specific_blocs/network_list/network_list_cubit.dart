@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/infra/services/interx_status_service.dart';
+import 'package:miro/infra/services/api/interx_status_service.dart';
 import 'package:miro/shared/constants/network_health.dart';
 import 'package:miro/shared/models/network_model.dart';
 import 'package:miro/shared/models/network_status.dart';

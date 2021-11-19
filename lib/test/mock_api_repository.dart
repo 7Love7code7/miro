@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:miro/infra/dto/api/deposits/request/deposit_req.dart';
+import 'package:miro/infra/dto/api/withdraws/request/withdraws_req.dart';
 import 'package:miro/infra/repositories/api_repository.dart';
 import 'package:miro/test/mocks/api/api_status.dart';
 
 class MockApiRepository implements ApiRepository {
   @override
-  Future<Response<T>> fetchApiStatus<T>(Uri networkUri) async {
+  Future<Response<T>> fetchInterxStatus<T>(Uri networkUri) async {
     int statusCode = 404;
     Map<String, dynamic>? mockedResponse;
 
@@ -21,7 +23,14 @@ class MockApiRepository implements ApiRepository {
   }
 
   @override
-  void errorIgnore() {
-    // TODO(dpajak99): implement errorIgnore
+  Future<Response<T>> fetchDeposits<T>(Uri networkUri, DepositsReq depositsReq) {
+    // TODO(Karol): implement fetchDeposits
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Response<T>> fetchWithdraws<T>(Uri networkUri, WithdrawsReq withdrawsReq) {
+    // TODO(Karol): implement fetchWithdraws
+    throw UnimplementedError();
   }
 }

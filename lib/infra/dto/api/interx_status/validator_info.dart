@@ -1,4 +1,4 @@
-import 'pub_key.dart';
+import 'package:miro/infra/dto/api/interx_status/pub_key.dart';
 
 class ValidatorInfo {
   final String address;
