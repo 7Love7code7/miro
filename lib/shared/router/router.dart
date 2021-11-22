@@ -3,6 +3,9 @@ import 'package:miro/core_wrapper.dart';
 import 'package:miro/shared/guards/url_path_guard.dart';
 import 'package:miro/views/pages/connection_page/connection_page.dart';
 import 'package:miro/views/pages/create_wallet_page/create_wallet_page.dart';
+import 'package:miro/views/pages/dashboard_page/dashboard_page.dart';
+import 'package:miro/views/pages/login_via_keyfile_page/login_via_keyfile_page.dart';
+import 'package:miro/views/pages/login_via_mnemonic_page/login_via_mnemonic_page.dart';
 import 'package:miro/views/pages/validators_page/validators_page.dart';
 import 'package:miro/views/pages/welcome_page/welcome_page.dart';
 
@@ -24,6 +27,12 @@ import 'package:miro/views/pages/welcome_page/welcome_page.dart';
         guards: [UrlPathGuard],
       ),
       AutoRoute<void>(
+        page: DashboardPage,
+        name: 'DashboardRoute',
+        path: 'dashboard',
+        guards: [UrlPathGuard],
+      ),
+      AutoRoute<void>(
         page: ConnectionPage,
         name: 'ConnectionRoute',
         path: 'connection',
@@ -38,7 +47,19 @@ import 'package:miro/views/pages/welcome_page/welcome_page.dart';
       AutoRoute<void>(
         page: CreateWalletPage,
         name: 'CreateWalletRoute',
-        path: 'wallet',
+        path: 'create-wallet',
+        guards: [UrlPathGuard],
+      ),
+      AutoRoute<void>(
+        page: LoginViaKeyfilePage,
+        name: 'LoginViaKeyfileRoute',
+        path: 'login-via-keyfile',
+        guards: [UrlPathGuard],
+      ),
+      AutoRoute<void>(
+        page: LoginViaMnemonicPage,
+        name: 'LoginViaMnemonicRoute',
+        path: 'login-via-mnemonic',
         guards: [UrlPathGuard],
       ),
       RedirectRoute(path: '', redirectTo: 'welcome'),

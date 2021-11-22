@@ -2,8 +2,8 @@ import 'dart:html' as html;
 
 // ignore_for_file: unsafe_html
 class BrowserUtils {
-  static void download(List<int> bytes, String name) {
-    final html.Blob blob = html.Blob(bytes);
+  static void download(List<dynamic> content, String name) {
+    final html.Blob blob = html.Blob(content);
     final String url = html.Url.createObjectUrlFromBlob(blob);
     final html.AnchorElement anchor = html.document.createElement('a') as html.AnchorElement
       ..href = url

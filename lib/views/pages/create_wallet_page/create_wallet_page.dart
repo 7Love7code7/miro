@@ -1,6 +1,5 @@
 import 'package:bip39/bip39.dart';
 import 'package:flutter/material.dart';
-import 'package:miro/config/default_networks_list.dart';
 import 'package:miro/shared/models/keyfile.dart';
 import 'package:miro/shared/models/mnemonic.dart';
 import 'package:miro/shared/models/wallet.dart';
@@ -16,7 +15,8 @@ class CreateWalletPage extends StatefulWidget {
 }
 
 class _CreateWalletPage extends State<CreateWalletPage> {
-  late Mnemonic _mnemonic;
+  final TextEditingController _keyfilePasswordController = TextEditingController(text: 'Dominik');
+  Mnemonic _mnemonic = Mnemonic.random();
   Wallet? _wallet;
   bool _isLoading = false;
 
@@ -24,7 +24,6 @@ class _CreateWalletPage extends State<CreateWalletPage> {
 
   @override
   void initState() {
-    _mnemonic = _generateMnemonic();
     super.initState();
   }
 
@@ -41,7 +40,7 @@ class _CreateWalletPage extends State<CreateWalletPage> {
             ElevatedButton(
               onPressed: () async {
                 setState(() {
-                  _mnemonic = _generateMnemonic();
+                  _mnemonic = Mnemonic.random();
                 });
               },
               child: const Text('Generate mnemonic'),
@@ -60,14 +59,20 @@ class _CreateWalletPage extends State<CreateWalletPage> {
                 },
               ),
             ),
+            SelectableText(
+              _mnemonic.value,
+            )
           ],
           if (_wallet != null) ...<Widget>[
             Text(_wallet!.bech32Address),
             KiraGravatar(address: _wallet!.bech32Address),
             KiraQrCode(data: _mnemonic.value),
+            TextFormField(
+              controller: _keyfilePasswordController,
+            ),
             ElevatedButton(
               onPressed: () {
-                KeyFile.fromWallet(_wallet!).download();
+                KeyFile.fromWallet(_wallet!).download(_keyfilePasswordController.text);
               },
               child: const Text('Download keyfile'),
             ),
@@ -80,7 +85,7 @@ class _CreateWalletPage extends State<CreateWalletPage> {
                   _isLoading = true;
                 });
                 Future<void>.delayed(const Duration(milliseconds: 500), () async {
-                  Wallet newWallet = Wallet.derive(_mnemonic, defaultNetwork);
+                  Wallet newWallet = Wallet.derive(mnemonic: _mnemonic);
                   setState(() {
                     _wallet = newWallet;
                     _isLoading = false;

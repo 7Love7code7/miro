@@ -40,7 +40,7 @@ analyzer:
 
     # Group: ERRORS
     avoid_empty_else: error # core recommended flutter // pedantic
-    avoid_print: error # flutter
+    avoid_print: warning # flutter
     avoid_relative_lib_imports: error # warning? # core recommended flutter // pedantic effective_dart
     avoid_types_as_parameter_names: error # core recommended flutter // pedantic
     # avoid_web_libraries_in_flutter: ignore # flutter
@@ -62,7 +62,7 @@ analyzer:
     always_declare_return_types: error # // pedantic
     always_require_non_null_named_parameters: error # recommended flutter // pedantic
     annotate_overrides: error # recommended flutter // pedantic
-    avoid_catches_without_on_clauses: warning # // effective_dart
+    avoid_catches_without_on_clauses: ignore # // effective_dart     # zjebane
     avoid_catching_errors: error # // effective_dart
     # avoid_classes_with_only_static_members: ignore # // effective_dart
     # avoid_equals_and_hash_code_on_mutable_classes: ignore # // effective_dart

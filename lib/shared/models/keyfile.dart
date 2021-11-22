@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:encrypt/encrypt.dart';
 import 'package:hex/hex.dart';
 import 'package:miro/shared/models/network_info.dart';
 import 'package:miro/shared/models/wallet.dart';
 import 'package:miro/shared/utils/browser_utils.dart';
+import 'package:miro/shared/utils/string_utils.dart';
 
 class KeyFile {
   final Uint8List address;
@@ -37,9 +39,11 @@ class KeyFile {
     );
   }
 
-  factory KeyFile.fromFile(List<int> bytes) {
-    String keyFileAsString = utf8.decode(bytes);
-    Map<String, dynamic> keyFileAsJson = jsonDecode(keyFileAsString) as Map<String, dynamic>;
+  factory KeyFile.fromFile(String keyFileAsString, String password) {
+    final Key key = Key.fromUtf8(StringUtils.fillFileToLength(text: password, size: 32));
+    final Encrypter encrypter = Encrypter(AES(key));
+    String decryptedString = encrypter.decrypt(Encrypted.fromBase64(keyFileAsString), iv: IV.fromLength(16));
+    Map<String, dynamic> keyFileAsJson = jsonDecode(decryptedString) as Map<String, dynamic>;
     return KeyFile.fromJson(keyFileAsJson);
   }
 
@@ -52,13 +56,16 @@ class KeyFile {
     };
   }
 
-  List<int> toBytes() {
+  void download(String password) {
     final String keyFileAsString = jsonEncode(toJson());
-    List<int> bytes = utf8.encode(keyFileAsString);
-    return bytes;
+    final Key key = Key.fromUtf8(StringUtils.fillFileToLength(text: password, size: 32));
+    final Encrypter encrypter = Encrypter(AES(key));
+    String encryptedString = encrypter.encrypt(keyFileAsString, iv: IV.fromLength(16)).base64;
+    BrowserUtils.download(<String>[encryptedString], 'keyfile.json');
   }
 
-  void download() {
-    BrowserUtils.download(toBytes(), 'keyfile.json');
+  @override
+  String toString() {
+    return 'KeyFile{address: $address, privateKey: $privateKey, publicKey: $publicKey, networkInfo: $networkInfo}';
   }
 }

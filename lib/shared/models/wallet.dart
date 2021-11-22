@@ -2,9 +2,9 @@ import 'dart:typed_data';
 
 // import 'package:bech32/bech32.dart' as bech32;
 import 'package:bip32/bip32.dart' as bip32;
-import 'package:bip39/bip39.dart' as bip39;
 import 'package:equatable/equatable.dart';
 import 'package:hex/hex.dart';
+import 'package:miro/config/default_networks_list.dart';
 import 'package:miro/shared/models/mnemonic.dart';
 import 'package:miro/shared/models/network_info.dart';
 import 'package:miro/shared/utils/bech32_encoder.dart';
@@ -42,24 +42,18 @@ class Wallet extends Equatable {
   /// using the specified [networkInfo].
   /// Optionally can define a different derivation path
   /// setting [lastDerivationPathSegment].
-  factory Wallet.derive(
-    Mnemonic mnemonic,
-    NetworkInfo networkInfo, {
+  factory Wallet.derive({
+    required Mnemonic mnemonic,
+    NetworkInfo networkInfo = defaultNetwork,
     String lastDerivationPathSegment = '0',
   }) {
-    // Get the mnemonic as a string
-    if (!mnemonic.validate()) {
-      throw Exception('Invalid mnemonic ${mnemonic.value}');
-    }
-
     final int _lastDerivationPathSegmentCheck = int.tryParse(lastDerivationPathSegment) ?? -1;
     if (_lastDerivationPathSegmentCheck < 0) {
       throw Exception('Invalid index format $lastDerivationPathSegment');
     }
 
     // Convert the mnemonic to a BIP32 instance
-    final Uint8List seed = mnemonic.toSeed();
-    final bip32.BIP32 root = bip32.BIP32.fromSeed(seed);
+    final bip32.BIP32 root = bip32.BIP32.fromSeed(mnemonic.seed);
 
     // Get the node from the derivation path
     final bip32.BIP32 derivedNode = root.derivePath('$baseDerivationPath/$lastDerivationPathSegment');
@@ -79,50 +73,6 @@ class Wallet extends Equatable {
     final Uint8List sha256Digest = SHA256Digest().process(publicKeyBytes);
     final Uint8List address = RIPEMD160Digest().process(sha256Digest);
 
-    return Wallet(
-      address: address,
-      publicKey: publicKeyBytes,
-      privateKey: derivedNode.privateKey!,
-      networkInfo: networkInfo,
-    );
-  }
-
-  static Future<Wallet> createWallet(List<String> mnemonic, NetworkInfo networkInfo,
-      {String lastDerivationPathSegment = '0'}) async {
-    // Get the mnemonic as a string
-    final String mnemonicString = mnemonic.join(' ');
-    if (!bip39.validateMnemonic(mnemonicString)) {
-      throw Exception('Invalid mnemonic $mnemonicString');
-    }
-
-    final int _lastDerivationPathSegmentCheck = int.tryParse(lastDerivationPathSegment) ?? -1;
-    if (_lastDerivationPathSegmentCheck < 0) {
-      throw Exception('Invalid index format $lastDerivationPathSegment');
-    }
-
-    // Convert the mnemonic to a BIP32 instance
-    final Uint8List seed = bip39.mnemonicToSeed(mnemonicString);
-    final bip32.BIP32 root = bip32.BIP32.fromSeed(seed);
-
-    // Get the node from the derivation path
-    final bip32.BIP32 derivedNode = root.derivePath('$baseDerivationPath/$lastDerivationPathSegment');
-
-    // Get the curve data
-    final ECCurve_secp256k1 secp256k1 = ECCurve_secp256k1();
-    final ECPoint point = secp256k1.G;
-
-    // Compute the curve point associated to the private key
-    final BigInt bigInt = BigInt.parse(HEX.encode(derivedNode.privateKey!), radix: 16);
-    final ECPoint? curvePoint = point * bigInt;
-
-    // Get the public key
-    final Uint8List publicKeyBytes = curvePoint!.getEncoded();
-
-    // Get the address
-    final Uint8List sha256Digest = SHA256Digest().process(publicKeyBytes);
-    final Uint8List address = RIPEMD160Digest().process(sha256Digest);
-
-    // Return the key bytes
     return Wallet(
       address: address,
       publicKey: publicKeyBytes,
