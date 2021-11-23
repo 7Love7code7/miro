@@ -61,6 +61,6 @@ class NetworkConnectorCubit extends Cubit<NetworkConnectorState> {
 
   void disconnect() {
     networkProvider.changeCurrentNetwork(null);
-    emit(NetworkConnectorConnectedState(currentNetwork: null));
+    emit(NetworkConnectorInitialState());
   }
 }

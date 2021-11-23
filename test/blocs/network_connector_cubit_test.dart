@@ -7,6 +7,7 @@ import 'package:miro/providers/network_provider.dart';
 import 'package:miro/shared/models/network_model.dart';
 import 'package:miro/test/test_locator.dart';
 
+// ignore_for_file: always_specify_types
 Future<void> main() async {
   setUpAll(TestWidgetsFlutterBinding.ensureInitialized);
   await initTestLocator();
@@ -17,7 +18,11 @@ Future<void> main() async {
       build: () => NetworkConnectorCubit(interxStatusService: globalLocator<InterxStatusService>()),
       act: (NetworkConnectorCubit cubit) =>
           cubit.connectFromUrl(url: 'https://test.test/?rpc=https://online.kira.network'),
-      expect: () => <dynamic>[isA<NetworkConnectorConnectedState>()],
+      expect: () => [
+        NetworkConnectorConnectedState(
+          currentNetwork: globalLocator<NetworkProvider>().currentNetwork!,
+        ),
+      ],
     );
 
     test('Check if connected', () async {
@@ -34,7 +39,7 @@ Future<void> main() async {
       build: () => NetworkConnectorCubit(interxStatusService: globalLocator<InterxStatusService>()),
       act: (NetworkConnectorCubit cubit) =>
           cubit.connectFromUrl(url: 'https://test.test/?rpc=https://online.kira.network'),
-      expect: () => <dynamic>[isA<NetworkConnectorConnectedState>()],
+      expect: () => [isA<NetworkConnectorConnectedState>()],
     );
 
     test('Check if connected', () async {
