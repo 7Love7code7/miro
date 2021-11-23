@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/providers/wallet_provider.dart';
-import 'package:miro/shared/models/mnemonic.dart';
-import 'package:miro/shared/models/wallet.dart';
+import 'package:miro/shared/models/wallet/mnemonic.dart';
+import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/router/router.gr.dart';
 
 class LoginViaMnemonicPage extends StatefulWidget {
@@ -35,7 +35,7 @@ class _LoginViaMnemonicPage extends State<LoginViaMnemonicPage> {
   }
 
   Future<void> onLoginButtonPressed() async {
-    /// Complete all UI operations before heavy Wallet deriving
+    // Complete all UI operations before heavy Wallet deriving
     await Future<void>.delayed(const Duration(milliseconds: 500));
 
     try {

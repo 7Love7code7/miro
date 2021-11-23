@@ -1,8 +1,7 @@
-import 'package:bip39/bip39.dart';
 import 'package:flutter/material.dart';
-import 'package:miro/shared/models/keyfile.dart';
-import 'package:miro/shared/models/mnemonic.dart';
-import 'package:miro/shared/models/wallet.dart';
+import 'package:miro/shared/models/wallet/keyfile.dart';
+import 'package:miro/shared/models/wallet/mnemonic.dart';
+import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/pages/create_wallet_page/mnemonic_grid_tile.dart';
 import 'package:miro/views/widgets/kira_custom/kira_gravatar.dart';
 import 'package:miro/views/widgets/kira_custom/kira_qr_code.dart';
@@ -15,7 +14,7 @@ class CreateWalletPage extends StatefulWidget {
 }
 
 class _CreateWalletPage extends State<CreateWalletPage> {
-  final TextEditingController _keyfilePasswordController = TextEditingController(text: 'Dominik');
+  final TextEditingController _keyfilePasswordController = TextEditingController(text: 'Some password');
   Mnemonic _mnemonic = Mnemonic.random();
   Wallet? _wallet;
   bool _isLoading = false;
@@ -25,10 +24,6 @@ class _CreateWalletPage extends State<CreateWalletPage> {
   @override
   void initState() {
     super.initState();
-  }
-
-  Mnemonic _generateMnemonic() {
-    return Mnemonic(value: generateMnemonic(strength: 256));
   }
 
   @override

@@ -12,7 +12,13 @@ class ApiManager {
   }) async {
     try {
       final Dio server = DioForBrowser(BaseOptions(baseUrl: networkUri.toString()));
-      return await server.get<T>(path);
+      return await server.get<T>(
+        path,
+        queryParameters: queryParameters,
+        options: options,
+        cancelToken: cancelToken,
+        onReceiveProgress: onReceiveProgress,
+      );
     } on DioError {
       rethrow;
     }

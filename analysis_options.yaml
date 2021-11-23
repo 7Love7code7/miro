@@ -17,8 +17,6 @@ analyzer:
   exclude:
     #### CUSTOM
     - build/**
-#    - lib/main.dart
-#    - lib/shared/router/**
     - lib/generated/**
     - lib/**.g.dart
     - lib/**.gr.dart
@@ -62,7 +60,8 @@ analyzer:
     always_declare_return_types: error # // pedantic
     always_require_non_null_named_parameters: error # recommended flutter // pedantic
     annotate_overrides: error # recommended flutter // pedantic
-    avoid_catches_without_on_clauses: ignore # // effective_dart     # zjebane
+    # zjebane
+    avoid_catches_without_on_clauses: ignore # // effective_dart
     avoid_catching_errors: error # // effective_dart
     # avoid_classes_with_only_static_members: ignore # // effective_dart
     # avoid_equals_and_hash_code_on_mutable_classes: ignore # // effective_dart

@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/providers/wallet_provider.dart';
-import 'package:miro/shared/models/keyfile.dart';
-import 'package:miro/shared/models/wallet.dart';
+import 'package:miro/shared/models/wallet/keyfile.dart';
+import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/views/widgets/kira_custom/kira_dropzone.dart';
 
@@ -15,7 +15,7 @@ class LoginViaKeyfilePage extends StatefulWidget {
 }
 
 class _LoginViaKeyfilePage extends State<LoginViaKeyfilePage> {
-  final TextEditingController _keyfilePasswordController = TextEditingController(text: 'Dominik');
+  final TextEditingController _keyfilePasswordController = TextEditingController(text: 'Some password');
   KiraDropZoneController dropZoneController = KiraDropZoneController();
 
   @override

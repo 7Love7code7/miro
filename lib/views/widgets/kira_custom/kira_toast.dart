@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class KiraToast {
@@ -7,6 +8,7 @@ class KiraToast {
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 2,
+      textColor: Colors.black,
       webBgColor: '#fff',
       webPosition: 'center',
       fontSize: 16,

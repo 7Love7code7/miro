@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:miro/shared/models/wallet.dart';
+import 'package:miro/shared/models/wallet/wallet.dart';
 
 class WalletProvider extends ChangeNotifier {
   Wallet? _currentWallet;
@@ -12,5 +12,4 @@ class WalletProvider extends ChangeNotifier {
     _currentWallet = newWallet;
     notifyListeners();
   }
-  // Future<Wallet> createWallet(String mnemonic) async {}
 }

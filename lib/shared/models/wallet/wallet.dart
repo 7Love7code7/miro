@@ -1,12 +1,10 @@
 import 'dart:typed_data';
 
-// import 'package:bech32/bech32.dart' as bech32;
 import 'package:bip32/bip32.dart' as bip32;
 import 'package:equatable/equatable.dart';
 import 'package:hex/hex.dart';
-import 'package:miro/config/default_networks_list.dart';
-import 'package:miro/shared/models/mnemonic.dart';
-import 'package:miro/shared/models/network_info.dart';
+import 'package:miro/shared/models/wallet/mnemonic.dart';
+import 'package:miro/shared/models/wallet/network_info.dart';
 import 'package:miro/shared/utils/bech32_encoder.dart';
 import 'package:pointycastle/ecc/curves/secp256k1.dart';
 import 'package:pointycastle/export.dart';
@@ -18,12 +16,22 @@ import 'package:pointycastle/export.dart';
 /// The associated [networkInfo] will be used when computing the [bech32Address]
 /// associated with the wallet.
 class Wallet extends Equatable {
+  /// Wallet base derivation path
+  /// More about:
+  /// * https://river.com/learn/terms/d/derivation-path/
   static const String baseDerivationPath = "m/44'/118'/0'/0";
+  static const NetworkInfo defaultNetworkInfo = NetworkInfo(bech32Hrp: 'kira', name: 'Kira Network');
 
+  /// The wallet hex address
   final Uint8List address;
+
+  /// The wallet hex private key
   final Uint8List privateKey;
+
+  /// The wallet hex public key
   final Uint8List publicKey;
 
+  /// Blockchain network details
   final NetworkInfo networkInfo;
 
   const Wallet({
@@ -38,13 +46,17 @@ class Wallet extends Equatable {
     return <Object>[networkInfo, address, privateKey, publicKey];
   }
 
+  /// ** HEAVY OPERATION **
   /// Derives the private key from the given [mnemonic]
   /// using the specified [networkInfo].
   /// Optionally can define a different derivation path
   /// setting [lastDerivationPathSegment].
+  ///
+  /// Throws [FormatException] if the [int.tryParse] cannot parse [lastDerivationPathSegment]
+  /// Throws [Exception] if [_lastDerivationPathSegmentCheck] is less than zero
   factory Wallet.derive({
     required Mnemonic mnemonic,
-    NetworkInfo networkInfo = defaultNetwork,
+    NetworkInfo networkInfo = defaultNetworkInfo,
     String lastDerivationPathSegment = '0',
   }) {
     final int _lastDerivationPathSegmentCheck = int.tryParse(lastDerivationPathSegment) ?? -1;
@@ -119,8 +131,8 @@ class Wallet extends Equatable {
 
   /// Creates a new [Wallet] instance from the given [json] and [privateKey].
   factory Wallet.fromJson(Map<String, dynamic> json, Uint8List privateKey) {
-    final Uint8List address = Uint8List.fromList(HEX.decode(json['hex_address'] as String));
-    final Uint8List publicKey = Uint8List.fromList(HEX.decode(json['public_key'] as String));
+    final Uint8List address = Uint8List.fromList(HEX.decode(json['hexAddress'] as String));
+    final Uint8List publicKey = Uint8List.fromList(HEX.decode(json['publicKey'] as String));
     return Wallet(
       address: address,
       publicKey: publicKey,
@@ -132,9 +144,9 @@ class Wallet extends Equatable {
   /// Converts the current [Wallet] instance into a JSON object.
   /// Note that the private key is not serialized for safety reasons.
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'hex_address': HEX.encode(address),
-        'bech32_address': bech32Address,
-        'public_key': HEX.encode(publicKey),
-        'network_info': networkInfo.toJson(),
+        'hexAddress': HEX.encode(address),
+        'bech32Address': bech32Address,
+        'publicKey': HEX.encode(publicKey),
+        'networkInfo': networkInfo.toJson(),
       };
 }

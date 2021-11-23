@@ -100,11 +100,6 @@ class _KiraDropzone extends State<KiraDropzone> {
       reader.onLoadEnd.listen((html.ProgressEvent event) {
         String result = reader.result.toString();
         widget.controller.uploadedFileData = result;
-
-        // ignore: avoid_print
-        print('widget.validate != null === ${widget.validate != null}');
-        // ignore: avoid_print
-        print('!widget.validate!(result === ${!widget.validate!(result)}');
         if (widget.validate != null && !widget.validate!(result)) {
           setState(() {
             hasError = true;
