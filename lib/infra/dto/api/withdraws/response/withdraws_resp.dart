@@ -19,4 +19,9 @@ class WithdrawsResp {
       totalCount: json['total_count'] as int,
     );
   }
+
+  @override
+  String toString() {
+    return 'WithdrawsResp{transactions: ${transactions.map((Transactions e) => e.toString())}, totalCount: $totalCount}';
+  }
 }

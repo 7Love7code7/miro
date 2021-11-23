@@ -20,4 +20,9 @@ class Transactions {
           : null,
     );
   }
+
+  @override
+  String toString() {
+    return 'Transactions{hash: $hash, time: $time, txs: $txs}';
+  }
 }
