@@ -41,7 +41,7 @@ analyzer:
     # Group: ERRORS
     always_use_package_imports: error
     avoid_empty_else: error # core recommended flutter // pedantic
-    avoid_print: error # flutter
+    avoid_print: info # flutter
     # avoid_relative_lib_imports: warning # core recommended flutter // pedantic effective_dart
     avoid_types_as_parameter_names: error # core recommended flutter // pedantic
     # avoid_web_libraries_in_flutter: ignore # flutter
