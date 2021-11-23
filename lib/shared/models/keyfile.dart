@@ -47,6 +47,14 @@ class KeyFile {
     return KeyFile.fromJson(keyFileAsJson);
   }
 
+  void download(String password) {
+    final String keyFileAsString = jsonEncode(toJson());
+    final Key key = Key.fromUtf8(StringUtils.fillFileToLength(text: password, size: 32));
+    final Encrypter encrypter = Encrypter(AES(key));
+    String encryptedString = encrypter.encrypt(keyFileAsString, iv: IV.fromLength(16)).base64;
+    BrowserUtils.download(<String>[encryptedString], 'keyfile.json');
+  }
+
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'address': HEX.encode(address),
@@ -54,14 +62,6 @@ class KeyFile {
       'publicKey': HEX.encode(publicKey),
       'networkInfo': networkInfo.toJson(),
     };
-  }
-
-  void download(String password) {
-    final String keyFileAsString = jsonEncode(toJson());
-    final Key key = Key.fromUtf8(StringUtils.fillFileToLength(text: password, size: 32));
-    final Encrypter encrypter = Encrypter(AES(key));
-    String encryptedString = encrypter.encrypt(keyFileAsString, iv: IV.fromLength(16)).base64;
-    BrowserUtils.download(<String>[encryptedString], 'keyfile.json');
   }
 
   @override
