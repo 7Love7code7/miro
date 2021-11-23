@@ -10,10 +10,9 @@ class NetworkConnectorInitialState extends NetworkConnectorState {}
 class NetworkConnectorConnectingState extends NetworkConnectorState {}
 
 class NetworkConnectorConnectedState extends NetworkConnectorState {
-  final NetworkModel? currentNetwork;
-  final DateTime connectTime;
+  final NetworkModel currentNetwork;
 
-  NetworkConnectorConnectedState({required this.currentNetwork}) : connectTime = DateTime.now();
+  NetworkConnectorConnectedState({required this.currentNetwork});
 
   @override
   bool operator ==(Object other) =>
@@ -21,10 +20,10 @@ class NetworkConnectorConnectedState extends NetworkConnectorState {
       super == other &&
           other is NetworkConnectorConnectedState &&
           runtimeType == other.runtimeType &&
-          connectTime == other.connectTime;
+          currentNetwork == other.currentNetwork;
 
   @override
-  int get hashCode => super.hashCode ^ connectTime.hashCode;
+  int get hashCode => super.hashCode ^ currentNetwork.hashCode;
 }
 
 class NetworkConnectorErrorState extends NetworkConnectorState {}
