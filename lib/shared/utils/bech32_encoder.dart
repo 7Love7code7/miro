@@ -51,11 +51,4 @@ class Bech32Encoder {
 
     return Uint8List.fromList(result);
   }
-
-  static Uint8List decode(String data) {
-    const Bech32Codec bech32Codec = Bech32Codec();
-    final Bech32 bech32Data = bech32Codec.decode(data);
-
-    return Uint8List.fromList(bech32Data.data);
-  }
 }

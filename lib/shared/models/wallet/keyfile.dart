@@ -66,14 +66,14 @@ class KeyFile {
 
   String _encryptKeyFile(String password) {
     final String keyFileAsString = jsonEncode(toJson());
-    final Key key = Key.fromUtf8(PasswordUtils.fillToLength(text: password, length: 32));
+    final Key key = Key.fromUtf8(PasswordUtils.fillToLength(text: password, length: 64));
     final Encrypter crypt = Encrypter(AES(key));
     String encryptedString = crypt.encrypt(keyFileAsString, iv: IV.fromLength(16)).base64;
     return encryptedString;
   }
 
   static String _decryptKeyFileData(String password, String encryptedKeyFile) {
-    final Key key = Key.fromUtf8(PasswordUtils.fillToLength(text: password, length: 32));
+    final Key key = Key.fromUtf8(PasswordUtils.fillToLength(text: password, length: 64));
     final Encrypter crypt = Encrypter(AES(key));
     String decryptedString = crypt.decrypt(Encrypted.fromBase64(encryptedKeyFile), iv: IV.fromLength(16));
     return decryptedString;
