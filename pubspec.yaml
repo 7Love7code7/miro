@@ -65,7 +65,7 @@ dependencies:
   # Flutter Widgets that make it easy to implement the BLoC (Business Logic Component) design pattern. Built to be used with the bloc state management package.
   # https://pub.dev/packages/flutter_bloc
   flutter_bloc: ^7.3.3
-  bloc_test: ^9.0.0
+  bloc_test: ^8.5.0
 
   # Contains code to deal with internationalized/localized messages, date and number formatting and parsing, bi-directional text, and other internationalization issues.
   # https://pub.dev/packages/intl
