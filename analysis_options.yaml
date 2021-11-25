@@ -37,9 +37,10 @@ analyzer:
     # _______________________ core + recommended + flutter (effective_dart) + pedantic _______________________
 
     # Group: ERRORS
+    always_use_package_imports: error
     avoid_empty_else: error # core recommended flutter // pedantic
     avoid_print: warning # flutter
-    avoid_relative_lib_imports: error # warning? # core recommended flutter // pedantic effective_dart
+    # avoid_relative_lib_imports: warning # doesn't work core recommended flutter // pedantic effective_dart
     avoid_types_as_parameter_names: error # core recommended flutter // pedantic
     # avoid_web_libraries_in_flutter: ignore # flutter
     control_flow_in_finally: error # recommended flutter
@@ -60,8 +61,7 @@ analyzer:
     always_declare_return_types: error # // pedantic
     always_require_non_null_named_parameters: error # recommended flutter // pedantic
     annotate_overrides: error # recommended flutter // pedantic
-    # zjebane
-    avoid_catches_without_on_clauses: ignore # // effective_dart
+    # avoid_catches_without_on_clauses: ignore # doesn't catch all exceptions when using "on" clause // effective_dart
     avoid_catching_errors: error # // effective_dart
     # avoid_classes_with_only_static_members: ignore # // effective_dart
     # avoid_equals_and_hash_code_on_mutable_classes: ignore # // effective_dart
@@ -191,7 +191,7 @@ linter:
     # __________________________________________________Error Rules__________________________________________________
     # Dart SDK: >= 2.10.0 • (Linter v0.1.118)
     # Avoid relative imports for files in lib/.
-    #- always_use_package_imports # overlaps with avoid_relative_lib_imports
+    - always_use_package_imports # overlaps with avoid_relative_lib_imports
 
     # Dart SDK: unreleased
     # Avoid method calls or property accesses on a "dynamic" target.
@@ -210,7 +210,7 @@ linter:
     # Dart SDK: >= 2.0.0 • (Linter v0.1.44)
     # Avoid relative imports for files in lib/.
     # core recommended flutter // pedantic effective_dart
-    - avoid_relative_lib_imports # overlaps with always_use_package_imports
+    #- avoid_relative_lib_imports # overlaps with always_use_package_imports
 
     # Dart SDK: >= 2.1.1-dev.0.0 • (Linter v0.1.72)
     # Avoid returning null for Future.
@@ -387,7 +387,7 @@ linter:
     # Dart SDK: >= 2.0.0 • (Linter v0.1.31)
     # Avoid catches without on clauses.
     # // effective_dart
-    - avoid_catches_without_on_clauses
+    #- avoid_catches_without_on_clauses
 
     # Dart SDK: >= 2.0.0 • (Linter v0.1.31)
     # Don't explicitly catch Error or types that implement it.
