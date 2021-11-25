@@ -1,7 +1,4 @@
-import 'dart:typed_data';
-
 import 'package:flutter_test/flutter_test.dart';
-import 'package:miro/shared/utils/bech32_encoder.dart';
 import 'package:miro/shared/utils/password_utils.dart';
 
 void main() {

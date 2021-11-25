@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
+import 'package:miro/views/widgets/generic/qr_code_scanner/qr_code_scanner_web_impl.dart';
 import 'package:miro/views/widgets/generic/qr_code_scanner/types.dart';
-
-import 'qr_code_scanner_web_impl.dart';
 
 class QrCodeCameraWeb extends StatelessWidget {
   final QrCodeCallback qrCodeCallback;

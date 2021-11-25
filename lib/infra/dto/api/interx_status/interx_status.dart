@@ -1,7 +1,8 @@
-import 'interx_info.dart';
-import 'node_info.dart';
-import 'sync_info.dart';
-import 'validator_info.dart';
+
+import 'package:miro/infra/dto/api/interx_status/interx_info.dart';
+import 'package:miro/infra/dto/api/interx_status/node_info.dart';
+import 'package:miro/infra/dto/api/interx_status/sync_info.dart';
+import 'package:miro/infra/dto/api/interx_status/validator_info.dart';
 
 class InterxStatus {
   final String id;
