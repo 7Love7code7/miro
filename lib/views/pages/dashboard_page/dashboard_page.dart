@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/models/wallet/keyfile.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
+import 'package:miro/shared/utils/browser_utils.dart';
 import 'package:miro/views/widgets/kira_custom/kira_gravatar.dart';
 import 'package:provider/provider.dart';
 
@@ -29,7 +30,8 @@ class DashboardPage extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    KeyFile.fromWallet(_wallet).download(_keyfilePasswordController.text);
+                    String encryptedKeyFileAsString = KeyFile.fromWallet(_wallet).getEncryptedContent(_keyfilePasswordController.text);
+                    BrowserUtils.downloadFile(<String>[encryptedKeyFileAsString], 'keyfile.json');
                   },
                   child: const Text('Download keyfile'),
                 ),

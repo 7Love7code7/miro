@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:miro/shared/models/wallet/keyfile.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
+import 'package:miro/shared/utils/browser_utils.dart';
 import 'package:miro/views/pages/create_wallet_page/mnemonic_grid_tile.dart';
 import 'package:miro/views/widgets/kira_custom/kira_gravatar.dart';
 import 'package:miro/views/widgets/kira_custom/kira_qr_code.dart';
@@ -67,7 +68,8 @@ class _CreateWalletPage extends State<CreateWalletPage> {
             ),
             ElevatedButton(
               onPressed: () {
-                KeyFile.fromWallet(_wallet!).download(_keyfilePasswordController.text);
+                String encryptedKeyFileAsString = KeyFile.fromWallet(_wallet!).getEncryptedContent(_keyfilePasswordController.text);
+                BrowserUtils.downloadFile(<String>[encryptedKeyFileAsString], 'keyfile.json');
               },
               child: const Text('Download keyfile'),
             ),

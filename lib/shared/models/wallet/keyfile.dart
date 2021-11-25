@@ -5,7 +5,6 @@ import 'package:encrypt/encrypt.dart';
 import 'package:hex/hex.dart';
 import 'package:miro/shared/models/wallet/network_info.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
-import 'package:miro/shared/utils/browser_utils.dart';
 import 'package:miro/shared/utils/password_utils.dart';
 
 /// Stores the content of the keyfile.json.
@@ -58,22 +57,20 @@ class KeyFile {
     return KeyFile.fromJson(keyFileAsJson);
   }
 
-  /// Encrypts the content and calls a download action
-  void download(String password, {String name = 'keyfile.json'}) {
-    String encryptedKeyFile = _encryptKeyFile(password);
-    BrowserUtils.downloadFile(<String>[encryptedKeyFile], name);
+  String getEncryptedContent(String password) {
+    return _encryptKeyFile(password);
   }
 
   String _encryptKeyFile(String password) {
     final String keyFileAsString = jsonEncode(toJson());
-    final Key key = Key.fromUtf8(PasswordUtils.fillToLength(text: password, length: 64));
+    final Key key = Key.fromUtf8(PasswordUtils.fillToLength(text: password, length: 32));
     final Encrypter crypt = Encrypter(AES(key));
     String encryptedString = crypt.encrypt(keyFileAsString, iv: IV.fromLength(16)).base64;
     return encryptedString;
   }
 
   static String _decryptKeyFileData(String password, String encryptedKeyFile) {
-    final Key key = Key.fromUtf8(PasswordUtils.fillToLength(text: password, length: 64));
+    final Key key = Key.fromUtf8(PasswordUtils.fillToLength(text: password, length: 32));
     final Encrypter crypt = Encrypter(AES(key));
     String decryptedString = crypt.decrypt(Encrypted.fromBase64(encryptedKeyFile), iv: IV.fromLength(16));
     return decryptedString;
