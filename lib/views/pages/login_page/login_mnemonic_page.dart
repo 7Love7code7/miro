@@ -6,14 +6,14 @@ import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/router/router.gr.dart';
 
-class LoginViaMnemonicPage extends StatefulWidget {
-  const LoginViaMnemonicPage({Key? key}) : super(key: key);
+class LoginMnemonicPage extends StatefulWidget {
+  const LoginMnemonicPage({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _LoginViaMnemonicPage();
+  State<StatefulWidget> createState() => _LoginMnemonicPage();
 }
 
-class _LoginViaMnemonicPage extends State<LoginViaMnemonicPage> {
+class _LoginMnemonicPage extends State<LoginMnemonicPage> {
   final TextEditingController mnemonicTextController = TextEditingController();
   String? errorMessage;
 

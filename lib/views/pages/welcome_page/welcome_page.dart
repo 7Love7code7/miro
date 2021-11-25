@@ -29,7 +29,7 @@ class WelcomePage extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               context.router.navigate(
-                const LoginViaKeyfileRoute(),
+                const LoginKeyfileRoute(),
               );
             },
             child: const Text('Navigate to Login Page - KEYFILE'),
@@ -37,7 +37,7 @@ class WelcomePage extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               context.router.navigate(
-                const LoginViaMnemonicRoute(),
+                const LoginMnemonicRoute(),
               );
             },
             child: const Text('Navigate to Login Page - MNEMONIC'),
@@ -45,7 +45,7 @@ class WelcomePage extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               context.router.navigate(
-                const LoginViaSaifuRoute(),
+                const LoginSaifuRoute(),
               );
             },
             child: const Text('Navigate to Login Page - SAIFU'),

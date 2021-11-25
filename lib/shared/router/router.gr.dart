@@ -15,12 +15,9 @@ import '../../core_wrapper.dart' as _i1;
 import '../../views/pages/connection_page/connection_page.dart' as _i4;
 import '../../views/pages/create_wallet_page/create_wallet_page.dart' as _i6;
 import '../../views/pages/dashboard_page/dashboard_page.dart' as _i3;
-import '../../views/pages/login_via_keyfile_page/login_via_keyfile_page.dart'
-    as _i7;
-import '../../views/pages/login_via_mnemonic_page/login_via_mnemonic_page.dart'
-    as _i8;
-import '../../views/pages/login_via_saifu_page/login_via_saifu_page.dart'
-    as _i9;
+import '../../views/pages/login_page/login_keyfile_page.dart' as _i7;
+import '../../views/pages/login_page/login_mnemonic_page.dart' as _i8;
+import '../../views/pages/login_page/login_saifu_page.dart' as _i9;
 import '../../views/pages/validators_page/validators_page.dart' as _i5;
 import '../../views/pages/welcome_page/welcome_page.dart' as _i2;
 import '../guards/url_path_guard.dart' as _i12;
@@ -77,24 +74,24 @@ class AppRouter extends _i10.RootStackRouter {
           opaque: true,
           barrierDismissible: false);
     },
-    LoginViaKeyfileRoute.name: (routeData) {
+    LoginKeyfileRoute.name: (routeData) {
       return _i10.CustomPage<void>(
           routeData: routeData,
-          child: const _i7.LoginViaKeyfilePage(),
+          child: const _i7.LoginKeyfilePage(),
           opaque: true,
           barrierDismissible: false);
     },
-    LoginViaMnemonicRoute.name: (routeData) {
+    LoginMnemonicRoute.name: (routeData) {
       return _i10.CustomPage<void>(
           routeData: routeData,
-          child: const _i8.LoginViaMnemonicPage(),
+          child: const _i8.LoginMnemonicPage(),
           opaque: true,
           barrierDismissible: false);
     },
-    LoginViaSaifuRoute.name: (routeData) {
+    LoginSaifuRoute.name: (routeData) {
       return _i10.CustomPage<void>(
           routeData: routeData,
-          child: const _i9.LoginViaSaifuPage(),
+          child: const _i9.LoginSaifuPage(),
           opaque: true,
           barrierDismissible: false);
     }
@@ -123,16 +120,16 @@ class AppRouter extends _i10.RootStackRouter {
               path: 'create-wallet',
               parent: CoreRoute.name,
               guards: [urlPathGuard]),
-          _i10.RouteConfig(LoginViaKeyfileRoute.name,
-              path: 'login-via-keyfile',
+          _i10.RouteConfig(LoginKeyfileRoute.name,
+              path: 'login-keyfile',
               parent: CoreRoute.name,
               guards: [urlPathGuard]),
-          _i10.RouteConfig(LoginViaMnemonicRoute.name,
-              path: 'login-via-mnemonic',
+          _i10.RouteConfig(LoginMnemonicRoute.name,
+              path: 'login-mnemonic',
               parent: CoreRoute.name,
               guards: [urlPathGuard]),
-          _i10.RouteConfig(LoginViaSaifuRoute.name,
-              path: 'login-via-saifu',
+          _i10.RouteConfig(LoginSaifuRoute.name,
+              path: 'login-saifu',
               parent: CoreRoute.name,
               guards: [urlPathGuard]),
           _i10.RouteConfig('#redirect',
@@ -187,23 +184,23 @@ class CreateWalletRoute extends _i10.PageRouteInfo<void> {
   static const String name = 'CreateWalletRoute';
 }
 
-/// generated route for [_i7.LoginViaKeyfilePage]
-class LoginViaKeyfileRoute extends _i10.PageRouteInfo<void> {
-  const LoginViaKeyfileRoute() : super(name, path: 'login-via-keyfile');
+/// generated route for [_i7.LoginKeyfilePage]
+class LoginKeyfileRoute extends _i10.PageRouteInfo<void> {
+  const LoginKeyfileRoute() : super(name, path: 'login-keyfile');
 
-  static const String name = 'LoginViaKeyfileRoute';
+  static const String name = 'LoginKeyfileRoute';
 }
 
-/// generated route for [_i8.LoginViaMnemonicPage]
-class LoginViaMnemonicRoute extends _i10.PageRouteInfo<void> {
-  const LoginViaMnemonicRoute() : super(name, path: 'login-via-mnemonic');
+/// generated route for [_i8.LoginMnemonicPage]
+class LoginMnemonicRoute extends _i10.PageRouteInfo<void> {
+  const LoginMnemonicRoute() : super(name, path: 'login-mnemonic');
 
-  static const String name = 'LoginViaMnemonicRoute';
+  static const String name = 'LoginMnemonicRoute';
 }
 
-/// generated route for [_i9.LoginViaSaifuPage]
-class LoginViaSaifuRoute extends _i10.PageRouteInfo<void> {
-  const LoginViaSaifuRoute() : super(name, path: 'login-via-saifu');
+/// generated route for [_i9.LoginSaifuPage]
+class LoginSaifuRoute extends _i10.PageRouteInfo<void> {
+  const LoginSaifuRoute() : super(name, path: 'login-saifu');
 
-  static const String name = 'LoginViaSaifuRoute';
+  static const String name = 'LoginSaifuRoute';
 }

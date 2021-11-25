@@ -7,14 +7,14 @@ import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/views/widgets/kira_custom/kira_dropzone.dart';
 
-class LoginViaKeyfilePage extends StatefulWidget {
-  const LoginViaKeyfilePage({Key? key}) : super(key: key);
+class LoginKeyfilePage extends StatefulWidget {
+  const LoginKeyfilePage({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _LoginViaKeyfilePage();
+  State<StatefulWidget> createState() => _LoginKeyfilePage();
 }
 
-class _LoginViaKeyfilePage extends State<LoginViaKeyfilePage> {
+class _LoginKeyfilePage extends State<LoginKeyfilePage> {
   final TextEditingController _keyfilePasswordController = TextEditingController(text: 'Some password');
   KiraDropZoneController dropZoneController = KiraDropZoneController();
 

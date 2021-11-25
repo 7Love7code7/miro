@@ -7,17 +7,17 @@ import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/router/router.gr.dart';
-import 'package:miro/views/pages/login_via_saifu_page/saifu_qr_scanner_dialog.dart';
+import 'package:miro/views/pages/login_page/saifu_qr_scanner_dialog.dart';
 import 'package:miro/views/widgets/kira_custom/kira_toast.dart';
 
-class LoginViaSaifuPage extends StatefulWidget {
-  const LoginViaSaifuPage({Key? key}) : super(key: key);
+class LoginSaifuPage extends StatefulWidget {
+  const LoginSaifuPage({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _LoginViaSaifuPage();
+  State<StatefulWidget> createState() => _LoginSaifuPage();
 }
 
-class _LoginViaSaifuPage extends State<LoginViaSaifuPage> {
+class _LoginSaifuPage extends State<LoginSaifuPage> {
   String? errorMessage;
   bool isLoggingIn = false;
 
