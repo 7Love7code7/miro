@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/models/wallet/keyfile.dart';
@@ -12,7 +12,7 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _keyfilePasswordController = TextEditingController(text: 'Some password');
+    final TextEditingController _keyfilePasswordController = TextEditingController(text: '');
 
     return Scaffold(
       body: Consumer<WalletProvider>(
@@ -34,6 +34,12 @@ class DashboardPage extends StatelessWidget {
                     BrowserUtils.downloadFile(<String>[encryptedKeyFileAsString], 'keyfile.json');
                   },
                   child: const Text('Download keyfile'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    context.router.popUntilRoot();
+                  },
+                  child: const Text('Back to Welcome Page'),
                 ),
               ],
             ],

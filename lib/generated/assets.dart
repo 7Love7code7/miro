@@ -2,6 +2,7 @@
 class Assets {
   Assets._();
 
-  static const String assetsConfig = 'assets/config.json';
+  static const String assetsNetworkListConfig = 'assets/network_list_config.json';
   static const String repositoryApiStatus = 'assets/test/repository/api_status.json';
+
 }

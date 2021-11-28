@@ -15,7 +15,7 @@ class LoginKeyfilePage extends StatefulWidget {
 }
 
 class _LoginKeyfilePage extends State<LoginKeyfilePage> {
-  final TextEditingController _keyfilePasswordController = TextEditingController(text: 'Some password');
+  final TextEditingController _keyfilePasswordController = TextEditingController(text: '');
   KiraDropZoneController dropZoneController = KiraDropZoneController();
 
   @override
@@ -34,17 +34,23 @@ class _LoginKeyfilePage extends State<LoginKeyfilePage> {
             onPressed: _onLoginButtonPressed,
             child: const Text('Login'),
           ),
+          ElevatedButton(
+            onPressed: () {
+              context.router.pop();
+            },
+            child: const Text('Back to Welcome Page'),
+          ),
         ],
       ),
     );
   }
 
-  bool _validateKeyFile(String fileData) {
+  String? _validateKeyFile(String fileData) {
     try {
       _getWalletFromKeyFileString(fileData);
-      return true;
-    } catch (_) {
-      return false;
+      return null;
+    } catch (e) {
+      return e.toString();
     }
   }
 
@@ -56,12 +62,16 @@ class _LoginKeyfilePage extends State<LoginKeyfilePage> {
   }
 
   Wallet _getWalletFromKeyFileString(String keyFileAsString) {
-    KeyFile keyFile = KeyFile.fromFile(keyFileAsString, _keyfilePasswordController.text);
-    return Wallet(
-      networkInfo: keyFile.networkInfo,
-      address: keyFile.address,
-      privateKey: keyFile.privateKey,
-      publicKey: keyFile.publicKey,
-    );
+    try {
+      KeyFile keyFile = KeyFile.fromFile(keyFileAsString, _keyfilePasswordController.text);
+      return Wallet(
+        networkInfo: keyFile.networkInfo,
+        address: keyFile.address,
+        privateKey: keyFile.privateKey,
+        publicKey: keyFile.publicKey,
+      );
+    } catch (_) {
+      throw Exception('Invalid keyfile or wrong password');
+    }
   }
 }

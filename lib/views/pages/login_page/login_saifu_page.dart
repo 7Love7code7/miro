@@ -37,6 +37,12 @@ class _LoginSaifuPage extends State<LoginSaifuPage> {
             },
             child: const Text('Scan QR'),
           ),
+          ElevatedButton(
+            onPressed: () {
+              context.router.pop();
+            },
+            child: const Text('Back to Welcome Page'),
+          ),
         ],
       ),
     );

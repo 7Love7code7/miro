@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/shared/models/wallet/keyfile.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
@@ -15,7 +16,7 @@ class CreateWalletPage extends StatefulWidget {
 }
 
 class _CreateWalletPage extends State<CreateWalletPage> {
-  final TextEditingController _keyfilePasswordController = TextEditingController(text: 'Some password');
+  final TextEditingController _keyfilePasswordController = TextEditingController(text: '');
   Mnemonic _mnemonic = Mnemonic.random();
   Wallet? _wallet;
   bool _isLoading = false;
@@ -68,29 +69,41 @@ class _CreateWalletPage extends State<CreateWalletPage> {
             ),
             ElevatedButton(
               onPressed: () {
-                String encryptedKeyFileAsString = KeyFile.fromWallet(_wallet!).getEncryptedContent(_keyfilePasswordController.text);
+                String encryptedKeyFileAsString =
+                    KeyFile.fromWallet(_wallet!).getEncryptedContent(_keyfilePasswordController.text);
                 BrowserUtils.downloadFile(<String>[encryptedKeyFileAsString], 'keyfile.json');
               },
               child: const Text('Download keyfile'),
             ),
           ],
           if (_isLoading) const Text('Generating...'),
-          if (_wallet == null)
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  _isLoading = true;
-                });
-                Future<void>.delayed(const Duration(milliseconds: 500), () async {
-                  Wallet newWallet = Wallet.derive(mnemonic: _mnemonic);
-                  setState(() {
-                    _wallet = newWallet;
-                    _isLoading = false;
-                  });
-                });
-              },
-              child: const Text('Create Account'),
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              ElevatedButton(
+                onPressed: () {
+                  context.router.pop();
+                },
+                child: const Text('Back to Welcome Page'),
+              ),
+              if (_wallet == null)
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      _isLoading = true;
+                    });
+                    Future<void>.delayed(const Duration(milliseconds: 500), () async {
+                      Wallet newWallet = Wallet.derive(mnemonic: _mnemonic);
+                      setState(() {
+                        _wallet = newWallet;
+                        _isLoading = false;
+                      });
+                    });
+                  },
+                  child: const Text('Create Account'),
+                ),
+            ],
+          ),
         ],
       ),
     );

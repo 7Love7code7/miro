@@ -18,11 +18,12 @@ class SaifuQrScannerDialog extends StatefulWidget {
 class _SaifuQrScannerDialog extends State<SaifuQrScannerDialog> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.grey[200],
-      width: 300,
-      height: 500,
-      child: Card(
+    return AlertDialog(
+      content: Container(
+        constraints: const BoxConstraints(
+          maxWidth: 300,
+          maxHeight: 500,
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[

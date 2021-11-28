@@ -29,6 +29,12 @@ class _LoginMnemonicPage extends State<LoginMnemonicPage> {
             onPressed: onLoginButtonPressed,
             child: const Text('Login'),
           ),
+          ElevatedButton(
+            onPressed: () {
+              context.router.pop();
+            },
+            child: const Text('Back to Welcome Page'),
+          ),
         ],
       ),
     );

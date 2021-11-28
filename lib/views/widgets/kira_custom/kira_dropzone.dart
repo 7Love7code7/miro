@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 
 typedef DropzoneUpload = void Function(String fileData);
-typedef DropzoneUploadValidate = bool Function(String fileData);
+typedef DropzoneUploadValidate = String? Function(String fileData);
 
 class KiraDropZoneController {
   final DropzoneUpload? onFileUpload;
@@ -47,6 +47,7 @@ class _KiraDropzone extends State<KiraDropzone> {
   late DropzoneViewController controller;
   html.File? uploadedFile;
   bool hasError = false;
+  String? errorMessage;
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +79,7 @@ class _KiraDropzone extends State<KiraDropzone> {
                 children: <Widget>[
                   if (hasError) ...<Widget>[
                     const Icon(Icons.error),
-                    const Text('Error'),
+                    Text(errorMessage!),
                   ],
                   Text(uploadedFile!.name),
                 ],
@@ -100,9 +101,11 @@ class _KiraDropzone extends State<KiraDropzone> {
       reader.onLoadEnd.listen((html.ProgressEvent event) {
         String result = reader.result.toString();
         widget.controller.uploadedFileData = result;
-        if (widget.validate != null && !widget.validate!(result)) {
+        String? validateMessage = widget.validate != null ? widget.validate!(result) : null;
+        if (validateMessage != null) {
           setState(() {
             hasError = true;
+            errorMessage = validateMessage;
           });
         } else if (widget.controller.onFileUpload != null) {
           {
