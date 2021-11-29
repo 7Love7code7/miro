@@ -69,9 +69,10 @@ class _CreateWalletPage extends State<CreateWalletPage> {
             ),
             ElevatedButton(
               onPressed: () {
+                KeyFile keyfile = KeyFile.fromWallet(_wallet!);
                 String encryptedKeyFileAsString =
-                    KeyFile.fromWallet(_wallet!).getEncryptedContent(_keyfilePasswordController.text);
-                BrowserUtils.downloadFile(<String>[encryptedKeyFileAsString], 'keyfile.json');
+                keyfile.getFileContent(_keyfilePasswordController.text);
+                BrowserUtils.downloadFile(<String>[encryptedKeyFileAsString], keyfile.fileName);
               },
               child: const Text('Download keyfile'),
             ),

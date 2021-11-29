@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:hex/hex.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/network_info.dart';
-import 'package:miro/shared/utils/bech32_encoder.dart';
+import 'package:miro/shared/utils/crypto/bech32_encoder.dart';
 import 'package:pointycastle/ecc/curves/secp256k1.dart';
 import 'package:pointycastle/export.dart';
 

@@ -23,12 +23,12 @@ void main() {
     String testPassword = 'kiraPassword';
     test('Encrypt keyfile', () async {
       expect(
-        testedKeyFile.getEncryptedContent(testPassword).runtimeType,
+        testedKeyFile.getFileContent(testPassword).runtimeType,
         String,
       );
     });
     test('Decrypt keyfile', () async {
-      String encryptedKeyFileString = testedKeyFile.getEncryptedContent(testPassword);
+      String encryptedKeyFileString = testedKeyFile.getFileContent(testPassword);
       expect(
         KeyFile.fromFile(encryptedKeyFileString, testPassword).privateKey,
         testedKeyFile.privateKey,

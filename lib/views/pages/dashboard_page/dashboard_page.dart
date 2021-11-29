@@ -30,8 +30,10 @@ class DashboardPage extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    String encryptedKeyFileAsString = KeyFile.fromWallet(_wallet).getEncryptedContent(_keyfilePasswordController.text);
-                    BrowserUtils.downloadFile(<String>[encryptedKeyFileAsString], 'keyfile.json');
+                    KeyFile keyfile = KeyFile.fromWallet(_wallet);
+                    String encryptedKeyFileAsString =
+                    keyfile.getFileContent(_keyfilePasswordController.text);
+                    BrowserUtils.downloadFile(<String>[encryptedKeyFileAsString], keyfile.fileName);
                   },
                   child: const Text('Download keyfile'),
                 ),
